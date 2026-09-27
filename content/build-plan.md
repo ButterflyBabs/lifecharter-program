@@ -1,6 +1,6 @@
 # LifeCharter Program App · Phased Build Plan
 
-**Status:** plan approved in principle 2026-09-27 · no code written yet · updated as we go
+**Status (2026-09-27):** building started. The app is live for testing at **lifecharter-program.vercel.app**. lifecharter.life stays on its redirect until go-live.
 
 **Goal:** enrollment opens at the LifeCharter Incubator, **Thursday Nov 12, 2026, 5pm MT**, on **lifecharter.life**.
 
@@ -57,17 +57,21 @@
 ## Phases
 
 ### Phase 0 · Set-up · Sep 28 – Oct 3
-- All Phase 0 decisions made ✓ (Vimeo set-up parked on the punch list) for the first group (and holiday break?); video host
-- New GitHub repo and Vercel project
-- Program tables in the shared account system; lifecharter.life added to the sign-in allowlist
-- Stripe products: Guided (founding pay-in-full, founding 3-payment plan, regular price); Self-Guided and Private created but not yet sold
+- ✓ Decisions: pricing, founding offer, class start dates, Sunday openings, Tuesday Gathering, Zoom + Vimeo
+- ✓ Vercel project **lifecharter-program** created and deployed
+- ✓ Program tables in the shared account system (classes, enrollments, Charter entries, lesson media, Gatherings, settings), with privacy rules so each member's Charter is theirs alone
+- ✓ November and December 2026 classes set up; 50 Founding Seats setting
+- ☐ GitHub repo (needs a one-time step from Babs)
+- ☐ Stripe products: moved to Phase 2 with checkout
 
-### Phase 1 · Member app · Oct 4 – 17
-- Sign-in with the shared login
-- Classes: each member belongs to a class (e.g. November 2026) with its own start date; Orientation opens on the start date and each new week opens on Sunday; members can always go back to earlier weeks
-- Home screen with the 13-week path and weekly unlocking
-- Lesson pages with all four tabs
-- Charter pages for Weeks 0–1, saving as members type
+### Phase 1 · Member app · Oct 4 – 17 (started early, Sep 27)
+- ✓ Sign-in with the shared login
+- ✓ Home screen with the 13-week path; weeks open every Sunday per class; members can always go back
+- ✓ Lesson pages with Video · My Charter pages · Transcript · Handout · Resources
+- ✓ Digital Charter pages for **all 13 weeks**, saving as members type
+- ✓ My LifeCharter page collecting each chapter
+- ✓ Admin preview mode (Babs sees every week open)
+- ✓ Babs's first walk-through (2026-09-27): "looks awesome"
 
 ### Phase 2 · Enrollment · Oct 18 – 31
 - Enrollment page on lifecharter.life
@@ -79,7 +83,6 @@
 - One Gatherings calendar for all classes, with the link; a Charter Signing marker when a class reaches Week 12
 - Gathering replays: each recording appears in the app automatically (from the video host's Replays folder) and is posted to the Collective's Replays pathway
 - Admin view
-- Charter pages for all 13 weeks
 
 ### Phase 3 · Content & testing · Nov 1 – 9
 - Orientation and Week 1 videos uploaded (Babs records by about **Nov 15**)
