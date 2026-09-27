@@ -84,10 +84,10 @@
 - ✓ Admin page: checkout set-up checklist, one-click Stripe products, Founding Seats, enrollments, notify-me list
 - ✓ Keys added by Babs (service key, Stripe key, Stripe webhook, email key) and Stripe products created (2026-09-27)
 - ✓ Test: the password email arrived (2026-09-27), from "The LifeCharter Program", replies to Babs
-- Founding seat cap: one shared count of 50 across both Incubators; checkout closes automatically at 50 seats, and the page switches to a waitlist
-- Founding windows: set in admin, one per Incubator (opens at the Incubator, closes at its deadline). The page shows only the current window's deadline, never a future Incubator, and shows $997 between windows
-- The 3-payment plan stops automatically after the third payment
-- Notify-me list for Self-Guided and Private
+- ✓ Founding seat cap: one shared count of 50 across both Incubators. When seat 50 sells, the founding price closes and Guided keeps selling at $997 (Babs's call, 2026-09-27)
+- ✓ Founding windows: kept in the app, one per Incubator (opens at the Incubator, closes at its deadline). The page shows only the current window's deadline, never a future Incubator, and shows $997 between windows
+- ✓ The 3-payment plan stops automatically after the third payment
+- ✓ Notify-me list for Self-Guided and Private
 - ✓ Gatherings page for all classes: next Tuesday, the standing Zoom link, and replays (newest first)
 - ✓ Admin "Videos & Gatherings": paste a Vimeo link per lesson, add resources, set the Zoom link, add or remove Gathering replays
 - Gathering replays: each recording appears in the app automatically (from the video host's Replays folder) and is posted to the Collective's Replays pathway

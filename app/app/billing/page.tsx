@@ -84,7 +84,9 @@ export default async function BillingPage() {
                       <p className="mt-1 text-[12px] text-ink-soft">
                         {foundingOpen
                           ? `${seatsLeft} of ${offer.seats_total} Founding Seats left · ends ${formatDeadline(offer.founding_closes!)}`
-                          : `Only ${offer.seats_total} Founding Seats, offered at the LifeCharter Incubator`}
+                          : seatsLeft === 0
+                            ? `All ${offer.seats_total} Founding Seats are taken · Guided is open at the regular price`
+                            : `Only ${offer.seats_total} Founding Seats, offered at the LifeCharter Incubator`}
                       </p>
                     </>
                   ) : (

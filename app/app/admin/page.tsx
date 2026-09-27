@@ -62,17 +62,29 @@ export default async function AdminPage() {
   const offer = offerData as Offer;
   const windows = (settings?.find((s) => s.key === "founding_windows")?.value as { label: string; opens: string; closes: string }[]) ?? [];
 
-  // Names and emails need the service key; without it, show IDs.
+  // Names, emails and Charter progress need the service key (each member's Charter is private to them); without it, show IDs.
   const people = new Map<string, string>();
+  const progress = new Map<string, { weeks: Set<number>; last: string }>();
   if (has("SUPABASE_SERVICE_ROLE_KEY") && enrollments?.length) {
     const admin = createAdminClient();
-    await Promise.all(
-      enrollments.map(async (e) => {
-        const { data } = await admin.auth.admin.getUserById(e.user_id);
-        if (data.user) people.set(e.user_id, `${(data.user.user_metadata?.full_name as string) || ""} <${data.user.email}>`.trim());
-      }),
-    );
+    const ids = [...new Set(enrollments.map((e) => e.user_id))];
+    const [, { data: entries }] = await Promise.all([
+      Promise.all(
+        ids.map(async (id) => {
+          const { data } = await admin.auth.admin.getUserById(id);
+          if (data.user) people.set(id, `${(data.user.user_metadata?.full_name as string) || ""} <${data.user.email}>`.trim());
+        }),
+      ),
+      admin.from("lcp_charter_entries").select("user_id, week, updated_at").in("user_id", ids),
+    ]);
+    for (const row of entries ?? []) {
+      const p = progress.get(row.user_id) ?? { weeks: new Set<number>(), last: row.updated_at };
+      p.weeks.add(row.week);
+      if (row.updated_at > p.last) p.last = row.updated_at;
+      progress.set(row.user_id, p);
+    }
   }
+  const dateMT = (iso: string) => new Date(iso).toLocaleDateString("en-US", { timeZone: "America/Denver" });
 
   const checks = [
     ["SUPABASE_SERVICE_ROLE_KEY", "Creates member accounts and enrollments after checkout"],
@@ -137,19 +149,25 @@ export default async function AdminPage() {
           <div className="overflow-x-auto">
             <table className="ui w-full text-left text-[13px]">
               <thead className="text-[11px] uppercase tracking-[0.1em] text-ink-soft">
-                <tr><th className="py-2 pr-4">Member</th><th className="pr-4">Class</th><th className="pr-4">Level</th><th className="pr-4">Payment</th><th className="pr-4">Status</th><th>Enrolled</th></tr>
+                <tr><th className="py-2 pr-4">Member</th><th className="pr-4">Class</th><th className="pr-4">Level</th><th className="pr-4">Payment</th><th className="pr-4">Status</th><th className="pr-4">Enrolled</th><th className="pr-4">Charter progress</th><th>Last worked on</th></tr>
               </thead>
               <tbody>
-                {enrollments.map((e) => (
-                  <tr key={e.user_id + e.created_at} className="border-t border-line">
-                    <td className="py-2 pr-4">{people.get(e.user_id) ?? e.user_id.slice(0, 8)}</td>
-                    <td className="pr-4">{(e.lcp_classes as unknown as { name: string } | null)?.name}</td>
-                    <td className="pr-4">{e.level}{e.founding ? " · founding" : ""}</td>
-                    <td className="pr-4">{e.payment_plan}</td>
-                    <td className="pr-4">{e.status}</td>
-                    <td>{new Date(e.created_at).toLocaleDateString("en-US", { timeZone: "America/Denver" })}</td>
-                  </tr>
-                ))}
+                {enrollments.map((e) => {
+                  const p = progress.get(e.user_id);
+                  const weeks = p ? [...p.weeks].sort((a, b) => a - b) : [];
+                  return (
+                    <tr key={e.user_id + e.created_at} className="border-t border-line">
+                      <td className="py-2 pr-4">{people.get(e.user_id) ?? e.user_id.slice(0, 8)}</td>
+                      <td className="pr-4">{(e.lcp_classes as unknown as { name: string } | null)?.name}</td>
+                      <td className="pr-4">{e.level}{e.founding ? " · founding" : ""}</td>
+                      <td className="pr-4">{e.payment_plan}</td>
+                      <td className="pr-4">{e.status}</td>
+                      <td className="pr-4">{dateMT(e.created_at)}</td>
+                      <td className="pr-4">{weeks.length ? `${weeks.length} of 13 weeks · Week ${weeks.join(", ")}` : "Not started"}</td>
+                      <td>{p ? dateMT(p.last) : "—"}</td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>
