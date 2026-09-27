@@ -18,6 +18,12 @@ export default async function SignInPage({ searchParams }: PageProps<"/sign-in">
         </p>
         <SignInForm next={dest} />
       </div>
+      <p className="ui mt-6 text-center text-[13px] text-ink-soft">
+        New to LifeCharter?{" "}
+        <a href="https://www.amilynnecarroll.com/life-charter" className="font-semibold text-teal underline underline-offset-2">
+          Learn about the LifeCharter Program
+        </a>
+      </p>
     </main>
   );
 }

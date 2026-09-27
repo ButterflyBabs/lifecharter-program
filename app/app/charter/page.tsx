@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { getMember } from "@/lib/program/member";
+import NotEnrolled from "@/components/NotEnrolled";
 import { CHAPTER_FIELDS, CHAPTER_FIELDS_12, WEEKS, weekData } from "@/lib/program/curriculum";
 import { isOpen } from "@/lib/program/schedule";
 import { createClient } from "@/lib/supabase/server";
@@ -15,7 +16,8 @@ function text(v: unknown) {
 
 export default async function CharterPage() {
   const member = (await getMember())!;
-  const cls = member.cls!;
+  if (!member.cls) return <NotEnrolled />;
+  const cls = member.cls;
   const supabase = await createClient();
   const { data } = await supabase.from("lcp_charter_entries").select("week, field, value").eq("user_id", member.userId);
   const byWeek = new Map<number, Record<string, unknown>>();
