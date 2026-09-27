@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { revalidatePath } from "next/cache";
@@ -86,6 +87,7 @@ export default async function AdminPage() {
       <section>
         <p className="eyebrow">Admin</p>
         <h1 className="mt-1 text-[38px]">Program admin</h1>
+        <Link href="/app/admin/content" className="btn btn-outline mt-4">Videos, resources &amp; Gatherings →</Link>
       </section>
 
       <section className="card flex flex-col gap-3 p-6">

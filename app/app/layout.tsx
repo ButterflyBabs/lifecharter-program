@@ -12,6 +12,7 @@ export default async function MemberLayout({ children }: LayoutProps<"/app">) {
     <nav className="ui flex flex-wrap items-center gap-x-5 gap-y-2 text-[13px] font-semibold text-ink">
       <Link href="/app" className="hover:text-teal">My path</Link>
       <Link href="/app/charter" className="hover:text-teal">My LifeCharter</Link>
+      <Link href="/app/gatherings" className="hover:text-teal">Gatherings</Link>
       <Link href="/app/billing" className="hover:text-teal">Billing</Link>
       {member.isAdmin && <Link href="/app/admin" className="hover:text-teal">Admin</Link>}
       <a href={COLLECTIVE_URL} className="hover:text-teal">The Collective ↗</a>

@@ -88,9 +88,9 @@
 - Founding windows: set in admin, one per Incubator (opens at the Incubator, closes at its deadline). The page shows only the current window's deadline, never a future Incubator, and shows $997 between windows
 - The 3-payment plan stops automatically after the third payment
 - Notify-me list for Self-Guided and Private
-- One Gatherings calendar for all classes, with the link; a Charter Signing marker when a class reaches Week 12
+- ✓ Gatherings page for all classes: next Tuesday, the standing Zoom link, and replays (newest first)
+- ✓ Admin "Videos & Gatherings": paste a Vimeo link per lesson, add resources, set the Zoom link, add or remove Gathering replays
 - Gathering replays: each recording appears in the app automatically (from the video host's Replays folder) and is posted to the Collective's Replays pathway
-- Admin view
 
 ### Phase 3 · Content & testing · Nov 1 – 9
 - Orientation and Week 1 videos uploaded (Babs records by about **Nov 15**)

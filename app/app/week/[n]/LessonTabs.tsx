@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import CharterPages from "@/components/CharterPages";
+import { vimeoEmbedUrl } from "@/lib/program/video";
 
 type Resource = { title: string; url: string; description?: string };
 
@@ -64,7 +65,7 @@ export default function LessonTabs({
             <div className="card overflow-hidden">
               <div className="relative aspect-video w-full">
                 <iframe
-                  src={`https://player.vimeo.com/video/${videoId}?title=0&byline=0&portrait=0`}
+                  src={vimeoEmbedUrl(videoId)}
                   title={`Week ${week}: ${title}`}
                   className="absolute inset-0 h-full w-full"
                   allow="autoplay; fullscreen; picture-in-picture"

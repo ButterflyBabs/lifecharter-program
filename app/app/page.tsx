@@ -53,12 +53,13 @@ export default async function PathPage() {
           </p>
           <span className="ui mt-2 text-[13px] font-semibold text-terra group-hover:underline">{open(focus) ? "Open this week →" : "Preview →"}</span>
         </Link>
-        <div className="card-warm flex flex-col gap-2 p-6">
+        <Link href="/app/gatherings" className="card-warm group flex flex-col gap-2 p-6 transition hover:-translate-y-0.5">
           <p className="eyebrow">Next Weekly Gathering</p>
           <h2 className="text-[26px]">{formatDate(gathering)}</h2>
           <p className="ui text-[14px] text-ink">6:00pm MT, live with Babs and every class</p>
-          <p className="text-[14px] text-ink-soft">Bring your Soul Challenge notes. The Zoom link and replays will appear here.</p>
-        </div>
+          <p className="text-[14px] text-ink-soft">Bring your Soul Challenge notes.</p>
+          <span className="ui mt-1 text-[13px] font-semibold text-terra group-hover:underline">Zoom link and replays →</span>
+        </Link>
       </section>
 
       <section className="flex flex-col gap-5">
