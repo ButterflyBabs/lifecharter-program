@@ -51,7 +51,7 @@ export default async function BillingPage() {
           </p>
         )}
         <p className="ui text-[13px] text-ink-soft">
-          Questions about a payment or a refund? The LifeCharter Program has a 7-day refund guarantee. Email <span className="font-semibold text-teal">amilynne@amilynnecarroll.com</span>.
+          Questions about a payment or a refund? The LifeCharter Program has a 7-day refund guarantee. Email <span className="font-semibold text-teal">support@amilynnecarroll.com</span>.
         </p>
       </section>
 

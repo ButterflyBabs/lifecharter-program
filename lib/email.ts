@@ -29,7 +29,7 @@ export async function sendEmail({ to, subject, html, text }: { to: string; subje
   const res = await fetch("https://api.resend.com/emails", {
     method: "POST",
     headers: { Authorization: `Bearer ${key}`, "Content-Type": "application/json" },
-    body: JSON.stringify({ from, to, subject, html, text, reply_to: "amilynne@amilynnecarroll.com" }),
+    body: JSON.stringify({ from, to, subject, html, text, reply_to: "support@amilynnecarroll.com" }),
   });
   if (!res.ok) console.error("email:", res.status, await res.text().catch(() => ""));
   return res.ok;
