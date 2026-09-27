@@ -82,7 +82,8 @@
 - ✓ Stripe webhook: a paid checkout creates or reuses the member's LifeCharter account, enrolls them in the next class, adds them to the Collective's LifeCharter Program channel, and sends the welcome email
 - ✓ Set-password and forgot-password pages on lifecharter.life
 - ✓ Admin page: checkout set-up checklist, one-click Stripe products, Founding Seats, enrollments, notify-me list
-- ☐ Keys added to the app's settings by Babs (service key, Stripe key, Stripe webhook, email key)
+- ✓ Keys added by Babs (service key, Stripe key, Stripe webhook, email key) and Stripe products created (2026-09-27)
+- ☐ Test: a password email arrives from lifecharter.life/forgot-password
 - Founding seat cap: one shared count of 50 across both Incubators; checkout closes automatically at 50 seats, and the page switches to a waitlist
 - Founding windows: set in admin, one per Incubator (opens at the Incubator, closes at its deadline). The page shows only the current window's deadline, never a future Incubator, and shows $997 between windows
 - The 3-payment plan stops automatically after the third payment
