@@ -4,7 +4,8 @@ import type { Metadata } from "next";
 import { getMember } from "@/lib/program/member";
 import { createClient } from "@/lib/supabase/server";
 import { STATIC_RESOURCES, WEEKS } from "@/lib/program/curriculum";
-import { addReplay, deleteReplay, saveJoinUrl, saveLesson } from "./actions";
+import { addReplayForm, deleteReplay, saveJoinUrlForm, saveLessonForm } from "./actions";
+import FeedbackForm from "./FeedbackForm";
 
 export const metadata: Metadata = { title: "Admin · Videos & Gatherings" };
 export const dynamic = "force-dynamic";
@@ -40,24 +41,22 @@ export default async function AdminContentPage() {
 
       <section className="card flex flex-col gap-4 p-6">
         <h2 className="text-[26px]">Weekly Gathering Zoom link</h2>
-        <form action={saveJoinUrl} className="flex flex-col gap-3 sm:flex-row sm:items-end">
+        <FeedbackForm action={saveJoinUrlForm} button="Save link" className="flex flex-col gap-3 sm:flex-row sm:items-end">
           <label className={`${label} flex-1`} htmlFor="join_url">
             Standing Zoom link (Tuesdays, 6pm MT)
             <input id="join_url" name="join_url" defaultValue={joinUrl} placeholder="https://us02web.zoom.us/j/…" className="field-input font-normal" />
           </label>
-          <button className="btn btn-primary">Save link</button>
-        </form>
+        </FeedbackForm>
       </section>
 
       <section className="card flex flex-col gap-4 p-6">
         <h2 className="text-[26px]">Add a Gathering replay</h2>
-        <form action={addReplay} className="grid gap-3 md:grid-cols-2">
+        <FeedbackForm action={addReplayForm} button="Add replay" resetOnSuccess className="grid gap-3 md:grid-cols-2">
           <label className={label} htmlFor="r-date">Gathering date<input id="r-date" name="date" type="date" required className="field-input font-normal" /></label>
           <label className={label} htmlFor="r-video">Vimeo link<input id="r-video" name="video" required placeholder="https://vimeo.com/…" className="field-input font-normal" /></label>
           <label className={label} htmlFor="r-title">Title (optional)<input id="r-title" name="title" placeholder="e.g. Finding the Lift" className="field-input font-normal" /></label>
           <label className={label} htmlFor="r-summary">Short summary (optional)<input id="r-summary" name="summary" className="field-input font-normal" /></label>
-          <div><button className="btn btn-primary">Add replay</button></div>
-        </form>
+        </FeedbackForm>
         {!!gatherings?.length && (
           <ul className="ui flex flex-col divide-y divide-line text-[13px]">
             {gatherings.map((g) => (
@@ -82,7 +81,7 @@ export default async function AdminContentPage() {
           const m = byWeek.get(w.n);
           const res = (m?.resources ?? []).map((r) => [r.title, r.url, r.description].filter(Boolean).join(" | ")).join("\n");
           return (
-            <form key={w.n} action={saveLesson} className="card grid gap-3 p-5 md:grid-cols-[180px_1fr_1fr_auto] md:items-start">
+            <FeedbackForm key={w.n} action={saveLessonForm} button="Save" buttonClass="btn btn-outline md:mt-6" className="card grid gap-3 p-5 md:grid-cols-[180px_1fr_1fr_auto] md:items-start">
               <input type="hidden" name="week" value={w.n} />
               <div>
                 <p className="ui text-[11px] font-bold uppercase tracking-[0.1em] text-ink-soft">Week {w.n}</p>
@@ -98,8 +97,7 @@ export default async function AdminContentPage() {
                 <textarea id={`res-${w.n}`} name="resources" rows={2} defaultValue={res} className="field-input font-normal" />
                 {STATIC_RESOURCES[w.n] && <span className="text-[11px] font-medium text-ink-soft">Always included: {STATIC_RESOURCES[w.n].map((r) => r.title).join(", ")}</span>}
               </label>
-              <button className="btn btn-outline md:mt-6">Save</button>
-            </form>
+            </FeedbackForm>
           );
         })}
       </section>

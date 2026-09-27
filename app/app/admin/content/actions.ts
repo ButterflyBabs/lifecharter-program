@@ -82,3 +82,25 @@ export async function deleteReplay(formData: FormData) {
   if (error) throw new Error(error.message);
   refresh();
 }
+
+export type FormState = { ok: boolean; message: string; at: number } | null;
+
+// Versions of the actions for forms that show "Saved" or a plain-language error.
+async function withFeedback(fn: (fd: FormData) => Promise<void>, formData: FormData, success: string): Promise<FormState> {
+  try {
+    await fn(formData);
+    return { ok: true, message: success, at: Date.now() };
+  } catch (e) {
+    return { ok: false, message: e instanceof Error ? e.message : "That didn't save. Please try again.", at: Date.now() };
+  }
+}
+
+export async function saveLessonForm(_prev: FormState, formData: FormData) {
+  return withFeedback(saveLesson, formData, "Saved ✓");
+}
+export async function saveJoinUrlForm(_prev: FormState, formData: FormData) {
+  return withFeedback(saveJoinUrl, formData, "Saved ✓ Members now see Join on Zoom.");
+}
+export async function addReplayForm(_prev: FormState, formData: FormData) {
+  return withFeedback(addReplay, formData, "Replay added ✓");
+}
