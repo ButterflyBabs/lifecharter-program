@@ -61,7 +61,7 @@
 - ✓ Vercel project **lifecharter-program** created and deployed
 - ✓ Program tables in the shared account system (classes, enrollments, Charter entries, lesson media, Gatherings, settings), with privacy rules so each member's Charter is theirs alone
 - ✓ November and December 2026 classes set up; 50 Founding Seats setting
-- ☐ GitHub repo (needs a one-time step from Babs)
+- ✓ GitHub repo ButterflyBabs/lifecharter-program, connected to Vercel (every push deploys)
 - ☐ Stripe products: moved to Phase 2 with checkout
 
 ### Phase 1 · Member app · Oct 4 – 17 (started early, Sep 27)
