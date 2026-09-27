@@ -1,6 +1,6 @@
 # LifeCharter Program App · Phased Build Plan
 
-**Status (2026-09-27):** building started. The app is live for testing at **lifecharter-program.vercel.app**. lifecharter.life stays on its redirect until go-live.
+**Status (2026-09-27):** building started. The app is live at **lifecharter.life** (moved 2026-09-27), behind the LifeCharter login. The public sales page stays at **amilynnecarroll.com/life-charter**.
 
 **Goal:** enrollment opens at the LifeCharter Incubator, **Thursday Nov 12, 2026, 5pm MT**, on **lifecharter.life**.
 
@@ -8,7 +8,8 @@
 
 ## Decisions made
 
-- **Standalone app** on lifecharter.life, in its own codebase, in the LifeCharter brand (not inside the Collective).
+- **Standalone app** on lifecharter.life, in its own codebase, in the LifeCharter brand (not inside the Collective). **lifecharter.life is the members' app, behind login.** The public sales page is amilynnecarroll.com/life-charter, and its Enroll buttons will send buyers to checkout on lifecharter.life.
+- **Prices show inside the app on the Billing tab** (all three levels, the founding offer and Founding Seats), and on the public Life Charter page.
 - **One login** shared with the LifeCharter Collective, and with Command Suite when graduates go on to enroll there. Same email and password everywhere; program access, Collective channels and Command Suite access are all granted to that one account.
 - **One dimension per week**, 13 weeks: Orientation, the Cocoon, the Vessel, the Circle, the Flight, and Wings Out.
 - **The four elements are renamed:** My Truth, My Horizon, My Why, My Flight Plan. Each week follows the seven movements.
@@ -44,7 +45,8 @@
 
 ## What members get at launch
 
-- An enrollment page on lifecharter.life showing all three levels, a live **Founding Seats remaining** counter (out of 50), and checkout for Guided only. The other two levels show "Opens after the founding group" and collect notify-me sign-ups.
+- A **Billing** tab showing the member's plan and all three levels, with the founding offer and a live **Founding Seats remaining** counter (out of 50). Self-Guided and Private show "Opens after the founding group" and collect notify-me sign-ups.
+- Checkout links for the public Life Charter page: Guided founding (pay in full / 3 payments) and regular
 - A home screen with the 13-week path; each week opens on schedule
 - Lesson pages: video · transcript · handout PDF · resources
 - **Digital Charter pages** that save as they type: ratings, belief sorter, My Truth, My Horizon, My Why, My Flight Plan, next right movement, Soul Challenge log
@@ -74,7 +76,9 @@
 - ✓ Babs's first walk-through (2026-09-27): "looks awesome"
 
 ### Phase 2 · Enrollment · Oct 18 – 31
-- Enrollment page on lifecharter.life
+- ✓ Billing tab with the three levels, founding offer, seat counter and notify-me sign-ups
+- ✓ Founding windows and seat count kept in the app (only the current window is ever shown)
+- Checkout links for the Enroll buttons on amilynnecarroll.com/life-charter
 - Checkout creates the account and program access; welcome emails
 - Founding seat cap: one shared count of 50 across both Incubators; checkout closes automatically at 50 seats, and the page switches to a waitlist
 - Founding windows: set in admin, one per Incubator (opens at the Incubator, closes at its deadline). The page shows only the current window's deadline, never a future Incubator, and shows $997 between windows
@@ -91,7 +95,7 @@
 - Phone and accessibility checks
 
 ### Phase 4 · Go live · Nov 10 – 22
-- lifecharter.life switched from its redirect to the app
+- ✓ lifecharter.life switched from its redirect to the app (done early, Sep 27)
 - Babs makes one real payment to confirm checkout
 - Enrollment opens at the Incubator, Thu Nov 12
 - Founding price closes Sun Nov 15
