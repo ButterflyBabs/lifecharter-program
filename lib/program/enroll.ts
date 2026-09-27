@@ -102,7 +102,7 @@ export async function fulfillCheckout(session: Stripe.Checkout.Session) {
       button: link ? { label: isNew ? "Set my password" : "Set a new password", href: link } : { label: "Sign in", href: `${APP_URL}/sign-in` },
       footnote: `This button works once and expires in about an hour. If it has expired, go to <a href="${APP_URL}/forgot-password" style="color:#0F5B63">${APP_URL.replace("https://", "")}/forgot-password</a> for a fresh link. Your app lives at <a href="${APP_URL}" style="color:#0F5B63">${APP_URL.replace("https://", "")}</a>.`,
     }),
-    text: `Welcome to the LifeCharter Program. Your class, ${target.name}, begins ${starts}. ${link ? `Set your password: ${link}` : `Sign in: ${APP_URL}/sign-in`}\n\nIf the link has expired, get a fresh one at ${APP_URL}/forgot-password.\n\nHead up. Wings out.\nBabs`,
+    text: `Welcome to the LifeCharter Program. Your class, ${target.name}, begins ${starts}. ${link ? `Set your password: ${link}` : `Sign in: ${APP_URL}/sign-in`}\n\nIf the link has expired, get a fresh one at ${APP_URL}/forgot-password.\n\nHead up - Wings out\nBabs 🦋`,
   });
 
   return { already: false, userId, isNew };

@@ -22,7 +22,7 @@ export default function Welcome() {
           <Link href="/sign-in" className="btn btn-primary">Sign in</Link>
           <Link href="/forgot-password" className="btn btn-outline">Set or reset my password</Link>
         </div>
-        <p className="mt-8 font-serif text-[20px] italic text-teal">Head up. Wings out. · Babs</p>
+        <p className="mt-8 font-serif text-[20px] italic text-teal">Head up - Wings out<br />Babs 🦋</p>
       </div>
     </main>
   );

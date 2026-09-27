@@ -14,7 +14,7 @@ export function brandEmail({ eyebrow, title, bodyHtml, button, footnote }: { eye
     <tr><td style="font-size:16px;line-height:1.65;color:#2E3A3F">${bodyHtml}</td></tr>
     ${button ? `<tr><td style="padding:24px 0 8px"><a href="${button.href}" style="display:inline-block;background:#C76F56;color:#ffffff;font-family:Arial,sans-serif;font-weight:bold;padding:13px 26px;border-radius:999px;text-decoration:none">${esc(button.label)}</a></td></tr>` : ""}
     ${footnote ? `<tr><td style="font-family:Arial,sans-serif;font-size:12.5px;line-height:1.6;color:#5B6A6F;padding-top:14px">${footnote}</td></tr>` : ""}
-    <tr><td style="font-size:17px;font-style:italic;color:#0F5B63;padding-top:22px">Head up. Wings out.<br>Babs</td></tr>
+    <tr><td style="font-size:17px;font-style:italic;color:#0F5B63;padding-top:22px">Head up - Wings out<br>Babs 🦋</td></tr>
   </table></td></tr></table></body></html>`;
 }
 

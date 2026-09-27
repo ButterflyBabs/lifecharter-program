@@ -620,7 +620,7 @@ def week12():
              card(label("Building something?") + '<p class="small">Graduates who enroll in LifeCharter Command Suite implementation within 30 days of graduating receive a $500 alumni credit (code LCALUMNI500). We\'ll talk about it on your Next Chapter Call.</p>') +
              "</div>" +
              card(prompt("A note to myself on graduation day", 7), "warm") +
-             closing("Head up. Wings out. · Babs 🦋").replace('<p class="sig">', '<p class="small">I\'m so honored to have traveled this path beside you.</p><p class="sig">'), f),
+             closing("Head up - Wings out · Babs 🦋").replace('<p class="sig">', '<p class="small">I\'m so honored to have traveled this path beside you.</p><p class="sig">'), f),
     ]
     return w, pages
 
