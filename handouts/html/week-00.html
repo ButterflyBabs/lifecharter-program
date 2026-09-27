@@ -1,0 +1,93 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>LifeCharter Week 0 Handout · Head Up</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,500;0,600;1,500&family=Lora:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@500;600;700&display=swap"><style>
+@page { size: 8.5in 11in; margin: 0; }
+:root {
+  --ivory:#FBF8F1; --paper:#FFFDF8; --ink:#2E3A3F; --soft:#5B6A6F; --line:#D9CDBA;
+  --teal:#0F5B63; --ocean:#4EA7A1; --mist:#DDE9E7; --terra:#C76F56; --blush:#F5D8CF;
+  --gold:#D4AF63; --sand:#EADFCF; --sage:#9CAF8B;
+}
+* { box-sizing:border-box; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+html, body { margin:0; padding:0; background:#ccc; }
+body { font-family:"Lora", Georgia, serif; color:var(--ink); font-size:11pt; line-height:1.5; }
+.page { width:8.5in; height:11in; background:var(--ivory); position:relative; overflow:hidden;
+  padding:0.7in 0.75in 0.85in; margin:0 auto 0.3in; page-break-after:always; break-after:page;
+  display:flex; flex-direction:column; gap:14pt; }
+.page:last-child { page-break-after:auto; break-after:auto; margin-bottom:0; }
+@media print { html, body { background:none; } .page { margin:0; } }
+.wash { position:absolute; inset:0; pointer-events:none; z-index:0;
+  background:
+    radial-gradient(40% 30% at 0% 0%, rgba(78,167,161,.20), transparent 70%),
+    radial-gradient(35% 28% at 100% 0%, rgba(245,216,207,.75), transparent 70%),
+    radial-gradient(45% 30% at 100% 100%, rgba(240,181,139,.22), transparent 70%); }
+.page > *:not(.wash) { position:relative; z-index:1; }
+.foot { position:absolute !important; left:0.75in; right:0.75in; bottom:0.4in; display:flex; justify-content:space-between;
+  font:500 7.5pt "Montserrat", Arial, sans-serif; letter-spacing:.08em; text-transform:uppercase; color:var(--soft);
+  border-top:0.6pt solid var(--gold); padding-top:6pt; white-space:nowrap; gap:12pt; }
+.kicker { font:700 8pt "Montserrat", Arial, sans-serif; letter-spacing:.18em; text-transform:uppercase; color:var(--terra); margin:0; }
+h1, h2, h3 { font-family:"EB Garamond", Garamond, Georgia, serif; font-weight:500; margin:0; color:var(--teal); line-height:1.1; }
+h2 { font-size:26pt; }
+h3 { font-size:15pt; color:var(--ink); font-weight:600; }
+p { margin:0; }
+.intro { color:var(--soft); font-size:10.5pt; max-width:6.2in; }
+.head { display:flex; flex-direction:column; gap:4pt; padding-bottom:8pt; border-bottom:0.6pt solid var(--sand); }
+
+/* cover */
+.cover { justify-content:center; align-items:center; text-align:center; gap:18pt; padding-top:0.9in; }
+.cover .logo { width:3.4in; }
+.cover .emblem { width:1.5in; opacity:.95; }
+.cover h1 { font-size:46pt; }
+.cover .stage { font:600 10pt "Montserrat", Arial, sans-serif; letter-spacing:.2em; text-transform:uppercase; color:var(--terra); }
+.cover .quote { font-family:"EB Garamond", Georgia, serif; font-style:italic; font-size:16pt; color:var(--teal); max-width:5.2in; line-height:1.35; }
+.cover .fields { display:grid; grid-template-columns:1fr 1fr; gap:16pt; width:5.4in; margin-top:6pt; }
+.field { font:600 8pt "Montserrat", Arial, sans-serif; letter-spacing:.14em; text-transform:uppercase; color:var(--soft); text-align:left;
+  border-bottom:0.8pt solid var(--ink); padding-bottom:16pt; }
+.glance { width:6.2in; display:grid; grid-template-columns:repeat(4,1fr); gap:8pt; margin-top:6pt; }
+.glance div { background:var(--paper); border-radius:9pt; padding:9pt 8pt; box-shadow:0 1pt 2pt rgba(46,58,63,.08), 0 5pt 12pt rgba(46,58,63,.08);
+  font:500 8pt/1.35 "Montserrat", Arial, sans-serif; color:var(--soft); }
+.glance b { display:block; font:600 11pt "EB Garamond", Georgia, serif; color:var(--teal); margin-bottom:2pt; }
+
+/* blocks */
+.card { background:var(--paper); border-radius:11pt; padding:12pt 14pt;
+  box-shadow:0 1pt 2pt rgba(46,58,63,.07), 0 6pt 16pt rgba(46,58,63,.08); display:flex; flex-direction:column; gap:6pt; }
+.card.warm { background:#FCEFEA; }
+.label { font:600 9pt "Montserrat", Arial, sans-serif; color:var(--ink); }
+.label small { font-weight:500; color:var(--soft); }
+.lines { display:flex; flex-direction:column; }
+.lines i { display:block; height:0.34in; border-bottom:0.6pt solid var(--line); }
+.scale { display:flex; gap:7pt; align-items:center; }
+.scale span { width:0.3in; height:0.3in; border-radius:50%; border:0.8pt solid var(--ocean); display:grid; place-items:center;
+  font:600 8pt "Montserrat", Arial, sans-serif; color:var(--teal); }
+.scale em { font:italic 8.5pt "Lora", serif; color:var(--soft); }
+.grid2 { display:grid; grid-template-columns:1fr 1fr; gap:12pt; }
+table.sorter { width:100%; border-collapse:collapse; font-size:9pt; }
+table.sorter th { font:600 7.5pt "Montserrat", Arial, sans-serif; letter-spacing:.1em; text-transform:uppercase; color:var(--soft); text-align:left; padding:0 6pt 5pt; border-bottom:0.8pt solid var(--gold); }
+table.sorter td { height:0.36in; border-bottom:0.6pt solid var(--line); padding:0 6pt; font:500 8pt "Montserrat", Arial, sans-serif; color:var(--soft); white-space:nowrap; }
+table.sorter td:first-child { width:62%; }
+.examples { font-size:9pt; color:var(--soft); columns:2; column-gap:18pt; }
+.examples li { margin-bottom:2pt; }
+.log { display:grid; grid-template-columns:0.7in 1fr; row-gap:0; }
+.log b { font:600 8pt "Montserrat", Arial, sans-serif; letter-spacing:.1em; text-transform:uppercase; color:var(--terra);
+  height:0.38in; display:flex; align-items:flex-end; padding-bottom:4pt; border-bottom:0.6pt solid var(--line); }
+.log i { height:0.38in; border-bottom:0.6pt solid var(--line); display:block; }
+.snap { display:grid; grid-template-columns:1.75in 1fr; row-gap:5pt; align-items:center; }
+.snap .dim { font:600 8.5pt "Montserrat", Arial, sans-serif; }
+.snap .grp { grid-column:1 / -1; font:700 7pt "Montserrat", Arial, sans-serif; letter-spacing:.16em; text-transform:uppercase; color:var(--terra); margin-top:5pt; border-bottom:0.6pt solid var(--sand); padding-bottom:2pt; }
+.snap .scale span { width:0.25in; height:0.25in; font-size:7pt; }
+.path { display:grid; grid-template-columns:repeat(5,1fr); gap:8pt; }
+.path div { background:var(--paper); border-radius:9pt; padding:9pt; font-size:8.5pt; line-height:1.4;
+  box-shadow:0 1pt 2pt rgba(46,58,63,.07), 0 5pt 12pt rgba(46,58,63,.07); }
+.path b { display:block; font:600 12pt "EB Garamond", Georgia, serif; color:var(--teal); }
+.path small { display:block; font:600 7pt "Montserrat", Arial, sans-serif; letter-spacing:.12em; text-transform:uppercase; color:var(--terra); margin-bottom:3pt; }
+.moves { display:grid; grid-template-columns:1fr 1fr; gap:6pt 14pt; font-size:9pt; }
+.moves b { color:var(--teal); font-family:"EB Garamond", Georgia, serif; font-size:12pt; font-weight:600; }
+.closing { text-align:center; margin-top:auto; display:flex; flex-direction:column; align-items:center; gap:6pt; }
+.closing img { width:0.55in; }
+.closing .sig { font-family:"EB Garamond", Georgia, serif; font-style:italic; font-size:15pt; color:var(--teal); }
+.charter { border:1.2pt solid var(--gold); outline:0.5pt solid var(--gold); outline-offset:-0.28in; }
+.charter .card { gap:3pt; padding:9pt 13pt; }
+.charter .lines i { height:0.3in; }
+.bank { font:500 9pt/1.9 "Montserrat", Arial, sans-serif; color:var(--teal); letter-spacing:.02em; }
+.care { width:6.2in; text-align:left; font-size:8.5pt; line-height:1.45; color:var(--soft); border:0.8pt solid var(--gold); border-radius:9pt; padding:8pt 11pt; }
+.care b { display:block; font:700 7.5pt "Montserrat", Arial, sans-serif; letter-spacing:.14em; text-transform:uppercase; color:var(--terra); margin-bottom:2pt; }
+.fill { flex:1; display:flex; flex-direction:column; }
+.fill .ruled { flex:1; min-height:0.7in; background:repeating-linear-gradient(to bottom, transparent 0, transparent calc(0.34in - 0.6pt), var(--line) calc(0.34in - 0.6pt), var(--line) 0.34in); }
+</style></head><body><section class="page cover"><div class="wash"></div><img class="logo" src="../assets/logo.png" alt="LifeCharter"><p class="stage">Week 0 · Orientation</p><h1>Head Up</h1><img class="emblem" src="../assets/emblem.png" alt=""><p class="quote">I don&#x27;t need a perfect wing. I need enough clarity to see the next right movement, and enough courage to extend my wings into it.</p><div class="glance"><div><b>Watch</b>Orientation lesson</div><div><b>Write</b>Your starting snapshot</div><div><b>Commit</b>Your weekly time</div><div><b>Gather</b>Meet your fellow travelers</div></div><div class="fields"><div class="field">Name</div><div class="field">Week of</div></div><div class="foot"><span>The LifeCharter Program · Week 0</span><span>© 2026 Sacred Kaleidoscope Community LLC</span></div></section><section class="page "><div class="wash"></div><div class="head"><p class="kicker">Your path</p><h2>Thirteen weeks, one dimension at a time</h2><p class="intro">Purpose is head up. Clarity is honest sight of the air you&#x27;re in. Aligned Action is wings out. We bring all three into each dimension of your life.</p></div><div class="path"><div><small>Weeks 1–3</small><b>The Cocoon</b>Spiritual Life, Character, Emotional Life. The inside first.</div><div><small>Weeks 4–5</small><b>The Vessel</b>Health &amp; Fitness, Intellectual Life. Body and mind.</div><div><small>Weeks 6–8</small><b>The Circle</b>Love Relationship, Parenting, Social Life. Your people.</div><div><small>Weeks 9–11</small><b>The Flight</b>Financial Life, Career, Quality of Life.</div><div><small>Week 12</small><b>Wings Out</b>Life Vision, then you sign your Charter.</div></div><div class="head"><p class="kicker">Every week</p><h2>The seven movements</h2></div><div class="card "><div class="moves"><div><b>1. The Air I&#x27;m In</b><br>An honest look at where this part of life is today.</div><div><b>2. My Truth</b><br>The beliefs I choose to live by.</div><div><b>3. My Horizon</b><br>This part of life thriving, in the present tense.</div><div><b>4. My Why</b><br>Why it matters: the lift under my wings.</div><div><b>5. My Flight Plan</b><br>Wing-sized practices, choices and boundaries.</div><div><b>6. My Next Right Movement</b><br>One action for this week.</div><div><b>7. Soul Challenge</b><br>A practice to live the week, not just think it.</div></div></div><div class="card "><p class="label">Your weekly rhythm</p><p style="font-size:9.5pt">Watch the lesson · write your Charter pages · live the Soul Challenge · join the live Weekly LifeCharter Gathering · share in the Collective.</p></div><div class="foot"><span>LifeCharter Program · Week 0 · Orientation</span><span>© 2026 Sacred Kaleidoscope Community LLC</span></div></section><section class="page "><div class="wash"></div><div class="head"><p class="kicker">Pause &amp; write</p><h2>My Starting Snapshot</h2><p class="intro">Rate each dimension from 1 (this part of my life hurts or feels empty) to 10 (thriving exactly as I&#x27;d want). Honest, not harsh. We&#x27;ll do this again in Week 12.</p></div><div class="card "><div class="snap"><div class="grp">The Cocoon</div><div class="dim">Spiritual Life</div><div class="scale"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span></div><div class="dim">Character</div><div class="scale"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span></div><div class="dim">Emotional Life</div><div class="scale"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span></div><div class="grp">The Vessel</div><div class="dim">Health &amp; Fitness</div><div class="scale"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span></div><div class="dim">Intellectual Life</div><div class="scale"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span></div><div class="grp">The Circle</div><div class="dim">Love Relationship</div><div class="scale"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span></div><div class="dim">Parenting</div><div class="scale"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span></div><div class="dim">Social Life</div><div class="scale"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span></div><div class="grp">The Flight</div><div class="dim">Financial Life</div><div class="scale"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span></div><div class="dim">Career</div><div class="scale"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span></div><div class="dim">Quality of Life</div><div class="scale"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span></div><div class="grp">Wings Out</div><div class="dim">Life Vision</div><div class="scale"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span></div></div></div><div class="grid2"><div class="card "><p class="label">Most alive right now, and why</p><div class="lines"><i></i><i></i><i></i></div></div><div class="card "><p class="label">Heaviest right now, and why</p><div class="lines"><i></i><i></i><i></i></div></div></div><div class="foot"><span>LifeCharter Program · Week 0 · Orientation</span><span>© 2026 Sacred Kaleidoscope Community LLC</span></div></section><section class="page "><div class="wash"></div><div class="head"><p class="kicker">Pause &amp; write</p><h2>Why I&#x27;m Here</h2></div><div class="card "><p class="label">What made me say yes to this program now?</p><div class="lines"><i></i><i></i><i></i><i></i><i></i></div></div><div class="card "><p class="label">If these thirteen weeks go beautifully, what will be different in me?</p><div class="lines"><i></i><i></i><i></i><i></i><i></i></div></div><div class="card "><p class="label">What might get in my way, and what will I do when it shows up?</p><div class="lines"><i></i><i></i><i></i><i></i><i></i></div></div><div class="foot"><span>LifeCharter Program · Week 0 · Orientation</span><span>© 2026 Sacred Kaleidoscope Community LLC</span></div></section><section class="page "><div class="wash"></div><div class="head"><p class="kicker">Pause &amp; write</p><h2>My Commitment</h2></div><div class="card warm"><p class="label">For the next thirteen weeks, I commit to…</p><div class="lines"><i></i><i></i><i></i><i></i><i></i></div><div class="grid2"><p class="label">My Charter time each week (day)</p><div class="lines"><i></i></div><p class="label">Time</p><div class="lines"><i></i></div></div></div><div class="card "><p class="label">Agreements for traveling this well</p><ul style="margin:0;padding-left:1.1em;font-size:9.5pt;display:grid;gap:3pt"><li>You can't do this wrong. Pages or three lines, both count.</li><li>Keep a pace you can sustain. If a week gets away from you, do the next right movement and keep going.</li><li>Some dimensions won't fit your life right now. You'll still find something in those weeks.</li><li>Tell the truth. Your Charter is private unless you choose to share it.</li><li>Come to the Gatherings, live or on replay.</li></ul></div><div class="card "><p class="label">Signed</p><div class="lines"><i></i></div></div><div class="closing"><img src="../assets/emblem.png" alt=""><p class="sig">Head up. Wings out.</p></div><div class="foot"><span>LifeCharter Program · Week 0 · Orientation</span><span>© 2026 Sacred Kaleidoscope Community LLC</span></div></section></body></html>

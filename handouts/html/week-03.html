@@ -1,0 +1,93 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>LifeCharter Week 3 Handout · Emotional Life</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,500;0,600;1,500&family=Lora:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@500;600;700&display=swap"><style>
+@page { size: 8.5in 11in; margin: 0; }
+:root {
+  --ivory:#FBF8F1; --paper:#FFFDF8; --ink:#2E3A3F; --soft:#5B6A6F; --line:#D9CDBA;
+  --teal:#0F5B63; --ocean:#4EA7A1; --mist:#DDE9E7; --terra:#C76F56; --blush:#F5D8CF;
+  --gold:#D4AF63; --sand:#EADFCF; --sage:#9CAF8B;
+}
+* { box-sizing:border-box; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+html, body { margin:0; padding:0; background:#ccc; }
+body { font-family:"Lora", Georgia, serif; color:var(--ink); font-size:11pt; line-height:1.5; }
+.page { width:8.5in; height:11in; background:var(--ivory); position:relative; overflow:hidden;
+  padding:0.7in 0.75in 0.85in; margin:0 auto 0.3in; page-break-after:always; break-after:page;
+  display:flex; flex-direction:column; gap:14pt; }
+.page:last-child { page-break-after:auto; break-after:auto; margin-bottom:0; }
+@media print { html, body { background:none; } .page { margin:0; } }
+.wash { position:absolute; inset:0; pointer-events:none; z-index:0;
+  background:
+    radial-gradient(40% 30% at 0% 0%, rgba(78,167,161,.20), transparent 70%),
+    radial-gradient(35% 28% at 100% 0%, rgba(245,216,207,.75), transparent 70%),
+    radial-gradient(45% 30% at 100% 100%, rgba(240,181,139,.22), transparent 70%); }
+.page > *:not(.wash) { position:relative; z-index:1; }
+.foot { position:absolute !important; left:0.75in; right:0.75in; bottom:0.4in; display:flex; justify-content:space-between;
+  font:500 7.5pt "Montserrat", Arial, sans-serif; letter-spacing:.08em; text-transform:uppercase; color:var(--soft);
+  border-top:0.6pt solid var(--gold); padding-top:6pt; white-space:nowrap; gap:12pt; }
+.kicker { font:700 8pt "Montserrat", Arial, sans-serif; letter-spacing:.18em; text-transform:uppercase; color:var(--terra); margin:0; }
+h1, h2, h3 { font-family:"EB Garamond", Garamond, Georgia, serif; font-weight:500; margin:0; color:var(--teal); line-height:1.1; }
+h2 { font-size:26pt; }
+h3 { font-size:15pt; color:var(--ink); font-weight:600; }
+p { margin:0; }
+.intro { color:var(--soft); font-size:10.5pt; max-width:6.2in; }
+.head { display:flex; flex-direction:column; gap:4pt; padding-bottom:8pt; border-bottom:0.6pt solid var(--sand); }
+
+/* cover */
+.cover { justify-content:center; align-items:center; text-align:center; gap:18pt; padding-top:0.9in; }
+.cover .logo { width:3.4in; }
+.cover .emblem { width:1.5in; opacity:.95; }
+.cover h1 { font-size:46pt; }
+.cover .stage { font:600 10pt "Montserrat", Arial, sans-serif; letter-spacing:.2em; text-transform:uppercase; color:var(--terra); }
+.cover .quote { font-family:"EB Garamond", Georgia, serif; font-style:italic; font-size:16pt; color:var(--teal); max-width:5.2in; line-height:1.35; }
+.cover .fields { display:grid; grid-template-columns:1fr 1fr; gap:16pt; width:5.4in; margin-top:6pt; }
+.field { font:600 8pt "Montserrat", Arial, sans-serif; letter-spacing:.14em; text-transform:uppercase; color:var(--soft); text-align:left;
+  border-bottom:0.8pt solid var(--ink); padding-bottom:16pt; }
+.glance { width:6.2in; display:grid; grid-template-columns:repeat(4,1fr); gap:8pt; margin-top:6pt; }
+.glance div { background:var(--paper); border-radius:9pt; padding:9pt 8pt; box-shadow:0 1pt 2pt rgba(46,58,63,.08), 0 5pt 12pt rgba(46,58,63,.08);
+  font:500 8pt/1.35 "Montserrat", Arial, sans-serif; color:var(--soft); }
+.glance b { display:block; font:600 11pt "EB Garamond", Georgia, serif; color:var(--teal); margin-bottom:2pt; }
+
+/* blocks */
+.card { background:var(--paper); border-radius:11pt; padding:12pt 14pt;
+  box-shadow:0 1pt 2pt rgba(46,58,63,.07), 0 6pt 16pt rgba(46,58,63,.08); display:flex; flex-direction:column; gap:6pt; }
+.card.warm { background:#FCEFEA; }
+.label { font:600 9pt "Montserrat", Arial, sans-serif; color:var(--ink); }
+.label small { font-weight:500; color:var(--soft); }
+.lines { display:flex; flex-direction:column; }
+.lines i { display:block; height:0.34in; border-bottom:0.6pt solid var(--line); }
+.scale { display:flex; gap:7pt; align-items:center; }
+.scale span { width:0.3in; height:0.3in; border-radius:50%; border:0.8pt solid var(--ocean); display:grid; place-items:center;
+  font:600 8pt "Montserrat", Arial, sans-serif; color:var(--teal); }
+.scale em { font:italic 8.5pt "Lora", serif; color:var(--soft); }
+.grid2 { display:grid; grid-template-columns:1fr 1fr; gap:12pt; }
+table.sorter { width:100%; border-collapse:collapse; font-size:9pt; }
+table.sorter th { font:600 7.5pt "Montserrat", Arial, sans-serif; letter-spacing:.1em; text-transform:uppercase; color:var(--soft); text-align:left; padding:0 6pt 5pt; border-bottom:0.8pt solid var(--gold); }
+table.sorter td { height:0.36in; border-bottom:0.6pt solid var(--line); padding:0 6pt; font:500 8pt "Montserrat", Arial, sans-serif; color:var(--soft); white-space:nowrap; }
+table.sorter td:first-child { width:62%; }
+.examples { font-size:9pt; color:var(--soft); columns:2; column-gap:18pt; }
+.examples li { margin-bottom:2pt; }
+.log { display:grid; grid-template-columns:0.7in 1fr; row-gap:0; }
+.log b { font:600 8pt "Montserrat", Arial, sans-serif; letter-spacing:.1em; text-transform:uppercase; color:var(--terra);
+  height:0.38in; display:flex; align-items:flex-end; padding-bottom:4pt; border-bottom:0.6pt solid var(--line); }
+.log i { height:0.38in; border-bottom:0.6pt solid var(--line); display:block; }
+.snap { display:grid; grid-template-columns:1.55in 1fr; row-gap:5pt; align-items:center; }
+.snap .dim { font:600 8.5pt "Montserrat", Arial, sans-serif; }
+.snap .grp { grid-column:1 / -1; font:700 7pt "Montserrat", Arial, sans-serif; letter-spacing:.16em; text-transform:uppercase; color:var(--terra); margin-top:5pt; border-bottom:0.6pt solid var(--sand); padding-bottom:2pt; }
+.snap .scale span { width:0.25in; height:0.25in; font-size:7pt; }
+.path { display:grid; grid-template-columns:repeat(5,1fr); gap:8pt; }
+.path div { background:var(--paper); border-radius:9pt; padding:9pt; font-size:8.5pt; line-height:1.4;
+  box-shadow:0 1pt 2pt rgba(46,58,63,.07), 0 5pt 12pt rgba(46,58,63,.07); }
+.path b { display:block; font:600 12pt "EB Garamond", Georgia, serif; color:var(--teal); }
+.path small { display:block; font:600 7pt "Montserrat", Arial, sans-serif; letter-spacing:.12em; text-transform:uppercase; color:var(--terra); margin-bottom:3pt; }
+.moves { display:grid; grid-template-columns:1fr 1fr; gap:6pt 14pt; font-size:9pt; }
+.moves b { color:var(--teal); font-family:"EB Garamond", Georgia, serif; font-size:12pt; font-weight:600; }
+.closing { text-align:center; margin-top:auto; display:flex; flex-direction:column; align-items:center; gap:6pt; }
+.closing img { width:0.55in; }
+.closing .sig { font-family:"EB Garamond", Georgia, serif; font-style:italic; font-size:15pt; color:var(--teal); }
+.charter { border:1.2pt solid var(--gold); outline:0.5pt solid var(--gold); outline-offset:-0.28in; }
+.charter .card { gap:3pt; padding:9pt 13pt; }
+.charter .lines i { height:0.3in; }
+.bank { font:500 9pt/1.9 "Montserrat", Arial, sans-serif; color:var(--teal); letter-spacing:.02em; }
+.care { width:6.2in; text-align:left; font-size:8.5pt; line-height:1.45; color:var(--soft); border:0.8pt solid var(--gold); border-radius:9pt; padding:8pt 11pt; }
+.care b { display:block; font:700 7.5pt "Montserrat", Arial, sans-serif; letter-spacing:.14em; text-transform:uppercase; color:var(--terra); margin-bottom:2pt; }
+.fill { flex:1; display:flex; flex-direction:column; }
+.fill .ruled { flex:1; min-height:0.7in; background:repeating-linear-gradient(to bottom, transparent 0, transparent calc(0.34in - 0.6pt), var(--line) calc(0.34in - 0.6pt), var(--line) 0.34in); }
+</style></head><body><section class="page cover"><div class="wash"></div><img class="logo" src="../assets/logo.png" alt="LifeCharter"><p class="stage">Week 3 · The Cocoon</p><h1>Emotional Life</h1><img class="emblem" src="../assets/emblem.png" alt=""><p class="quote">Feelings are information, not instructions. You can&#x27;t stop the wind, but you can learn to fly with it.</p><div class="glance"><div><b>Watch</b>Emotional Life lesson</div><div><b>Write</b>Your seven movements</div><div><b>Live</b>Name the Weather</div><div><b>Gather</b>Bring your notes</div></div><div class="fields"><div class="field">Name</div><div class="field">Week of</div></div><div class="care"><b>A word of care</b>This program is for reflection and growth. It isn&#x27;t therapy or a substitute for professional care. If something heavy comes up, reach out to someone you trust or a counselor. In a crisis, contact local emergency services; in the US, call or text 988.</div><div class="foot"><span>The LifeCharter Program · Week 3</span><span>© 2026 Sacred Kaleidoscope Community LLC</span></div></section><section class="page "><div class="wash"></div><div class="head"><p class="kicker">Movement 1</p><h2>The Air I&#x27;m In</h2><p class="intro">Your emotions are the air you fly through: lift, headwind, sometimes storm. No judgment here. Every habit you have with feelings made sense at some point.</p></div><div class="card "><p class="label">My emotional life today <small>circle one</small></p><div class="scale"><em>empty</em><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><em>thriving</em></div></div><div class="card "><p class="label">The three feelings that visit me most often these days</p><div class="lines"><i></i></div></div><div class="card "><p class="label">When a hard feeling shows up, what I usually do is…</p><div class="lines"><i></i><i></i><i></i></div></div><div class="card "><p class="label">Is there an old hurt I&#x27;m still carrying? (Name it, or just note that it&#x27;s there.)</p><div class="lines"><i></i><i></i><i></i></div></div><div class="card "><p class="label">Growing up, which feelings seemed not to be allowed?</p><div class="lines"><i></i><i></i></div></div><div class="foot"><span>LifeCharter Program · Week 3 · Emotional Life</span><span>© 2026 Sacred Kaleidoscope Community LLC</span></div></section><section class="page "><div class="wash"></div><div class="head"><p class="kicker">Movement 2</p><h2>My Truth</h2><p class="intro">Look at each belief you carry about this part of your life. Is it true for me? Is it mine, or was it handed to me? Does it lift me, or weigh me down?</p></div><div class="card "><p class="label">Beliefs people sometimes carry <small>(which feel familiar?)</small></p><ul class="examples"><li>Strong people don&#x27;t cry.</li><li>If I let myself feel it, I&#x27;ll fall apart.</li><li>Other people are responsible for how I feel.</li><li>Anger is always bad.</li><li>Feelings are information, not instructions.</li><li>Healing isn&#x27;t linear, and it&#x27;s allowed to take time.</li></ul></div><div class="card "><p class="label">My belief sorter <small>write each belief, then circle</small></p><table class="sorter"><tr><th>The belief</th><th>Whose is it?</th><th>Effect</th></tr><tr><td></td><td>mine · handed</td><td>lifts · weighs</td></tr><tr><td></td><td>mine · handed</td><td>lifts · weighs</td></tr><tr><td></td><td>mine · handed</td><td>lifts · weighs</td></tr><tr><td></td><td>mine · handed</td><td>lifts · weighs</td></tr><tr><td></td><td>mine · handed</td><td>lifts · weighs</td></tr><tr><td></td><td>mine · handed</td><td>lifts · weighs</td></tr></table></div><div class="card warm fill"><p class="label">My Truth <small>3–5 sentences, present tense, the beliefs I choose to live by</small></p><div class="ruled"></div></div><div class="foot"><span>LifeCharter Program · Week 3 · Emotional Life</span><span>© 2026 Sacred Kaleidoscope Community LLC</span></div></section><section class="page "><div class="wash"></div><div class="head"><p class="kicker">Movement 3</p><h2>My Horizon</h2><p class="intro">Not a life without hard feelings: a life where you feel what you feel, understand what it&#x27;s telling you, and respond instead of react. How do you meet a hard day? Express anger or hurt? How much room is there for joy?</p></div><div class="card warm fill"><p class="label">My emotional life when it&#x27;s thriving <small>present tense, specific enough to picture</small></p><div class="ruled"></div></div><div class="card warm"><p class="label">The weight I&#x27;m ready to begin setting down <small>optional; &quot;not yet&quot; is an honest answer</small></p><div class="lines"><i></i><i></i></div></div><div class="head"><p class="kicker">Movement 4</p><h2>My Why</h2></div><div class="card "><p class="label">A thriving emotional life matters to me because…</p><div class="lines"><i></i><i></i></div><p class="label">The people who will feel the difference are…</p><div class="lines"><i></i></div><p class="label">If nothing changes here, what it costs me is…</p><div class="lines"><i></i></div></div><div class="foot"><span>LifeCharter Program · Week 3 · Emotional Life</span><span>© 2026 Sacred Kaleidoscope Community LLC</span></div></section><section class="page "><div class="wash"></div><div class="head"><p class="kicker">Movement 5</p><h2>My Flight Plan</h2><p class="intro">Wing-sized: practices, choices and boundaries sized to the life you actually have. Two or three you&#x27;ll keep beat ten you&#x27;ll drop by Thursday.</p></div><div class="grid2"><div class="card "><p class="label">My daily weather check <small>once or twice a day, name what I&#x27;m feeling in one word</small></p><div class="lines"><i></i><i></i><i></i></div></div><div class="card "><p class="label">My plan for storms <small>pause, three slow breaths, name it, ask what I need</small></p><div class="lines"><i></i><i></i><i></i></div></div><div class="card "><p class="label">My healthy outlets <small>writing, music, prayer, outdoors, talking, creating, crying</small></p><div class="lines"><i></i><i></i><i></i></div></div><div class="card "><p class="label">My support <small>the people I&#x27;ll reach for; healing happens in connection</small></p><div class="lines"><i></i><i></i><i></i></div></div></div><div class="head"><p class="kicker">Movement 6</p><h2>My Next Right Movement</h2></div><div class="card warm"><p class="label">This week, I will…</p><div class="lines"><i></i><i></i></div><div class="grid2"><p class="label">When</p><div class="lines"><i></i></div><p class="label">How I&#x27;ll know I did it</p><div class="lines"><i></i></div></div></div><div class="foot"><span>LifeCharter Program · Week 3 · Emotional Life</span><span>© 2026 Sacred Kaleidoscope Community LLC</span></div></section><section class="page "><div class="wash"></div><div class="head"><p class="kicker">Movement 7 · Soul Challenge</p><h2>Name the Weather</h2><p class="intro">Three times a day, pause for one breath and ask: What am I feeling (one word)? Where do I feel it in my body? What is it asking for? Write one line each day.</p></div><div class="card "><p class="label">Feeling words <small>if you need help naming it</small></p><p class="bank">peaceful · hopeful · joyful · grateful · loved · proud · curious · tender · tired · restless · anxious · afraid · frustrated · angry · hurt · lonely · sad · grieving · ashamed · overwhelmed · numb · relieved</p></div><div class="card "><div class="log"><b>Day 1</b><i></i><b>Day 2</b><i></i><b>Day 3</b><i></i><b>Day 4</b><i></i><b>Day 5</b><i></i><b>Day 6</b><i></i><b>Day 7</b><i></i></div></div><div class="card "><p class="label">Reading all seven lines together, I notice…</p><div class="lines"><i></i><i></i></div></div><div class="card warm"><p class="label">To bring to this week&#x27;s Gathering: What pattern did you notice?</p><div class="lines"><i></i></div></div><div class="closing"><img src="../assets/emblem.png" alt=""><p class="sig">Head up. Wings out.</p></div><div class="foot"><span>LifeCharter Program · Week 3 · Emotional Life</span><span>© 2026 Sacred Kaleidoscope Community LLC</span></div></section><section class="page charter"><div class="wash"></div><div class="head"><p class="kicker">My LifeCharter · Dimension 3 of 12</p><h2>Emotional Life</h2><p class="intro">Your final words from this week, copied clean. This page becomes your Emotional Life chapter. You&#x27;ll sign all twelve in Week 12.</p></div><div class="card "><p class="label">My Truth <small>the beliefs I choose to live by</small></p><div class="lines"><i></i><i></i><i></i></div></div><div class="card "><p class="label">My Horizon <small>my emotional life thriving</small></p><div class="lines"><i></i><i></i><i></i><i></i></div></div><div class="card "><p class="label">My Why <small>why it matters to me</small></p><div class="lines"><i></i><i></i><i></i></div></div><div class="card "><p class="label">My Flight Plan <small>the anchors, rhythms and boundaries I&#x27;m keeping</small></p><div class="lines"><i></i><i></i><i></i></div></div><div class="grid2"><div class="card "><p class="label">Completed on</p><div class="lines"><i></i></div></div><div class="card "><p class="label">My initials</p><div class="lines"><i></i></div></div></div><div class="foot"><span>LifeCharter Program · Week 3 · Emotional Life</span><span>© 2026 Sacred Kaleidoscope Community LLC</span></div></section></body></html>

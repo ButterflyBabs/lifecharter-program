@@ -1,0 +1,209 @@
+@import "tailwindcss";
+
+/* LifeCharter brand (Sept 2026 board): EB Garamond headings, Lora body, Montserrat for UI. */
+:root {
+  --ivory: #fbf8f1;
+  --paper: #fffdf8;
+  --ink: #2e3a3f;
+  --ink-soft: #5b6a6f;
+  --line: #eadfcf;
+  --teal: #0f5b63;
+  --ocean: #4ea7a1;
+  --mist: #dde9e7;
+  --terra: #c76f56;
+  --terra-dark: #b45f47;
+  --blush: #f5d8cf;
+  --blush-soft: #fcefea;
+  --gold: #d4af63;
+  --sage: #9caf8b;
+  --shadow: 0 1px 2px rgba(46, 58, 63, 0.06), 0 10px 28px rgba(46, 58, 63, 0.09);
+}
+
+@theme inline {
+  --color-ivory: var(--ivory);
+  --color-paper: var(--paper);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-line: var(--line);
+  --color-teal: var(--teal);
+  --color-ocean: var(--ocean);
+  --color-mist: var(--mist);
+  --color-terra: var(--terra);
+  --color-blush: var(--blush);
+  --color-gold: var(--gold);
+  --font-serif: var(--font-garamond), Garamond, Georgia, serif;
+  --font-body: var(--font-lora), Georgia, serif;
+  --font-sans: var(--font-montserrat), "Helvetica Neue", Arial, sans-serif;
+}
+
+html {
+  background: var(--ivory);
+}
+
+body {
+  background: var(--ivory);
+  color: var(--ink);
+  font-family: var(--font-lora), Georgia, serif;
+  font-size: 17px;
+  line-height: 1.65;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-garamond), Garamond, Georgia, serif;
+  font-weight: 500;
+  color: var(--teal);
+  line-height: 1.15;
+  text-wrap: balance;
+}
+
+:focus-visible {
+  outline: 2px solid var(--teal);
+  outline-offset: 2px;
+}
+
+.eyebrow {
+  font-family: var(--font-montserrat), Arial, sans-serif;
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--terra);
+}
+
+.ui {
+  font-family: var(--font-montserrat), Arial, sans-serif;
+}
+
+.card {
+  background: var(--paper);
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+}
+
+.card-warm {
+  background: var(--blush-soft);
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: 999px;
+  padding: 11px 22px;
+  font-family: var(--font-montserrat), Arial, sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 0.02em;
+  transition: background 0.15s ease;
+}
+
+.btn-primary {
+  background: var(--terra);
+  color: #fff;
+}
+.btn-primary:hover {
+  background: var(--terra-dark);
+}
+
+.btn-outline {
+  border: 1px solid var(--teal);
+  color: var(--teal);
+}
+.btn-outline:hover {
+  background: var(--mist);
+}
+
+.field-input {
+  width: 100%;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-family: var(--font-lora), Georgia, serif;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--ink);
+  resize: vertical;
+}
+.field-input:focus {
+  outline: none;
+  border-color: var(--ocean);
+  box-shadow: 0 0 0 3px rgba(78, 167, 161, 0.18);
+}
+
+.prose-lc {
+  max-width: 68ch;
+}
+.prose-lc h2 {
+  font-size: 26px;
+  margin: 36px 0 10px;
+}
+.prose-lc h3 {
+  font-size: 20px;
+  margin: 28px 0 8px;
+  color: var(--ink);
+  font-weight: 600;
+}
+.prose-lc p {
+  margin: 0 0 16px;
+}
+.prose-lc ul,
+.prose-lc ol {
+  margin: 0 0 18px;
+  padding-left: 1.3em;
+  list-style: revert;
+}
+.prose-lc li {
+  margin-bottom: 6px;
+}
+.prose-lc li::marker {
+  color: var(--gold);
+}
+.prose-lc strong {
+  font-weight: 600;
+  color: var(--teal);
+}
+.prose-lc blockquote {
+  margin: 22px 0;
+  padding: 16px 20px;
+  border-radius: 14px;
+  background: var(--blush-soft);
+}
+.prose-lc blockquote p:last-child,
+.prose-lc blockquote ol:last-child {
+  margin-bottom: 0;
+}
+.prose-lc hr {
+  border: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  margin: 32px 0;
+}
+
+.dawn {
+  background:
+    radial-gradient(60% 70% at 10% 0%, rgba(221, 233, 231, 0.95), transparent 70%),
+    radial-gradient(50% 60% at 95% 5%, rgba(245, 216, 207, 0.9), transparent 70%),
+    var(--ivory);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .fade-in {
+    animation: fade-in 0.35s ease both;
+  }
+  @keyframes fade-in {
+    from {
+      opacity: 0.4;
+      transform: translateY(4px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}

@@ -1,0 +1,5 @@
+-- Applied to project xemrsuntluvotzpodpan on 2026-09-27 via the Supabase MCP (see migration lcp_program_core).
+-- Tables: lcp_classes, lcp_enrollments, lcp_charter_entries, lcp_lesson_media, lcp_gatherings, lcp_settings
+-- Function: lcp_is_enrolled() (authenticated only). Admins = cm_admins via cm_is_admin().
+-- Seed: classes 2026-11 (start 2026-11-23, week 1 opens 2026-11-29) and 2026-12 (start 2026-12-21, week 1 opens 2026-12-27);
+-- settings founding_seats_total = 50, gathering_schedule = Tuesdays 18:00 America/Denver.
