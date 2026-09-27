@@ -39,7 +39,7 @@ export default function SignInForm({ next }: { next: string }) {
       <button type="submit" disabled={busy} className="btn btn-primary mt-1 disabled:opacity-60">
         {busy ? "Signing in…" : "Sign in"}
       </button>
-      <a href="https://lccommandsuite.com/forgot-password" className="text-center text-[13px] text-teal underline underline-offset-2">
+      <a href="/forgot-password" className="text-center text-[13px] text-teal underline underline-offset-2">
         Forgot your password?
       </a>
     </form>
