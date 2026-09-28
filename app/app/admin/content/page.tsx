@@ -19,7 +19,8 @@ function videoLink(stored: string | null) {
   return hash ? `https://vimeo.com/${id}/${hash}` : `https://vimeo.com/${id}`;
 }
 
-export default async function AdminContentPage() {
+export default async function AdminContentPage({ searchParams }: { searchParams: Promise<{ replays?: string }> }) {
+  const replaysMsg = (await searchParams).replays ?? "";
   const member = (await getMember())!;
   if (!member.isAdmin) notFound();
   const supabase = await createClient();
@@ -55,6 +56,7 @@ export default async function AdminContentPage() {
         <p className="max-w-2xl text-[15px] text-ink-soft">
           Upload each Gathering recording to your Vimeo folder named <b>Replays</b>. Every two hours the app adds new ones to the Gatherings page and posts them in the Collective&rsquo;s Replays channel. Put the date in the video&rsquo;s name (for example 2026-12-01) and it files under that Gathering; otherwise it uses the Tuesday before the upload. The video&rsquo;s Vimeo description becomes its summary.
         </p>
+        {replaysMsg && <p role="status" className="ui rounded-lg bg-mist px-4 py-2 text-[14px] text-teal">{replaysMsg}</p>}
         {process.env.VIMEO_ACCESS_TOKEN ? (
           <form action={syncReplaysNow}>
             <button className="btn btn-outline min-h-11">Check for new replays now</button>

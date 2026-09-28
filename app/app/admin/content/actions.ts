@@ -1,6 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 import { getMember } from "@/lib/program/member";
 import { createClient } from "@/lib/supabase/server";
 import { parseVimeo } from "@/lib/program/video";
@@ -97,7 +98,20 @@ export async function addReplayForm(_prev: FormState, formData: FormData) {
 // "Check for new replays now" on the admin page: the same sync the scheduled job runs.
 export async function syncReplaysNow() {
   await requireAdmin();
-  const r = await syncReplays();
+  let msg: string;
+  try {
+    const r = await syncReplays();
+    msg = r.error
+      ? `Couldn't check: ${r.error}.`
+      : r.added.length
+        ? `Added ${r.added.length} replay${r.added.length === 1 ? "" : "s"} (${r.added.join("; ")}) and posted ${r.posted} to the Collective.`
+        : `Connected to Vimeo folder "${r.folder}". No new replays right now.`;
+  } catch (e) {
+    const m = (e as Error).message;
+    msg = /401|credentials/i.test(m)
+      ? "Vimeo didn't accept the access token. Generate a new one (Authenticated, Public + Private) and paste it into VIMEO_ACCESS_TOKEN in Vercel, then redeploy."
+      : `Couldn't check: ${m.slice(0, 200)}`;
+  }
   refresh();
-  if (r.error) throw new Error(r.error);
+  redirect(`/app/admin/content?replays=${encodeURIComponent(msg)}`);
 }
