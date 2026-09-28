@@ -54,7 +54,7 @@ export default async function AdminContentPage({ searchParams }: { searchParams:
       <section className="card flex flex-col gap-3 p-6">
         <h2 className="text-[26px]">Automatic replays</h2>
         <p className="max-w-2xl text-[15px] text-ink-soft">
-          Upload each Gathering recording to your Vimeo folder named <b>Replays</b>. Every two hours the app adds new ones to the Gatherings page and posts them in the Collective&rsquo;s Replays channel. Put the date in the video&rsquo;s name (for example 2026-12-01) and it files under that Gathering; otherwise it uses the Tuesday before the upload. The video&rsquo;s Vimeo description becomes its summary.
+          Upload each Gathering recording to your Vimeo folder <b>LC Gathering Replays</b>. Every two hours the app adds new ones to the Gatherings page and posts them in the Collective&rsquo;s Replays channel. Put the date in the video&rsquo;s name (for example 2026-12-01) and it files under that Gathering; otherwise it uses the Tuesday before the upload. The video&rsquo;s Vimeo description becomes its summary.
         </p>
         {replaysMsg && <p role="status" className="ui rounded-lg bg-mist px-4 py-2 text-[14px] text-teal">{replaysMsg}</p>}
         {process.env.VIMEO_ACCESS_TOKEN ? (

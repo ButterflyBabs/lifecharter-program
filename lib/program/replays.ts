@@ -81,6 +81,8 @@ export async function syncReplays(): Promise<{ added: string[]; posted: number; 
     if (!f) return { added: [], posted: 0, folder: null, error: 'No Vimeo folder named "Replays" found' };
     folderUri = f.uri;
     folderName = f.name;
+    // Remember this folder, so a later folder with "replay" in its name can't be picked by mistake.
+    await admin.from("lcp_settings").upsert({ key: "vimeo_replays_folder", value: f.uri, updated_at: new Date().toISOString() });
   }
   const list = await vimeo(`${folderUri}/videos?per_page=50&sort=date&direction=asc&fields=uri,name,description,created_time,link,player_embed_url,status`, token);
   const videos = (list.data as VimeoVideo[]).filter((v) => v.status === "available");
