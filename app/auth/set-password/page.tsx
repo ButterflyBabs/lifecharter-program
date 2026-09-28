@@ -20,7 +20,13 @@ export default function SetPasswordPage() {
     setError("");
     const { error } = await createClient().auth.updateUser({ password });
     if (error) {
-      setError(/session/i.test(error.message) ? "Your link has expired. Ask for a new one from the sign-in page." : error.message);
+      setError(
+        /session/i.test(error.message)
+          ? "Your link has expired. Ask for a new one from the sign-in page."
+          : /weak|easy to guess|pwned|breach|leaked/i.test(error.message)
+            ? "That password has shown up in a known data breach somewhere online, so it can't be used here. Please choose a different one (a short phrase of 3–4 unrelated words works well)."
+            : error.message,
+      );
       setBusy(false);
       return;
     }
