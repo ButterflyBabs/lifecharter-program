@@ -67,6 +67,9 @@ export default async function WeekPage({ params, searchParams }: PageProps<"/app
     lessonTranscript(n),
     supabase.from("lcp_lesson_media").select("video_id, resources").eq("week", n).maybeSingle(),
   ]);
+  // This class's Soul Studio member code: makes the suggested SOUL Challenges free (Babs, 2026-09-28).
+  const { data: clsRow } = member.cls ? await supabase.from("lcp_classes").select("soul_coupon").eq("id", member.cls.id).maybeSingle() : { data: null };
+  const soulCoupon = ((clsRow?.soul_coupon as string | null) || "").trim() || null;
 
   // Places marked for Babs's own words: highlighted for admins, left out for members until she fills them in.
   const transcript = member.isAdmin
@@ -90,6 +93,7 @@ export default async function WeekPage({ params, searchParams }: PageProps<"/app
         initialTab={typeof tab === "string" ? tab : undefined}
         videoId={media?.video_id ?? null}
         resources={resources}
+        soulCoupon={soulCoupon}
         transcript={
           <div className="prose-lc">
             <ReactMarkdown remarkPlugins={[remarkGfm]}>{transcript}</ReactMarkdown>

@@ -52,6 +52,18 @@ async function enableRefundEvents() {
   revalidatePath("/app/admin");
 }
 
+// Saves a class's Soul Studio member code (a 100%-off Payhip coupon for the suggested SOUL Challenges).
+async function saveSoulCoupon(formData: FormData) {
+  "use server";
+  const member = await getMember();
+  if (!member?.isAdmin) throw new Error("admins only");
+  const classId = String(formData.get("class_id") ?? "");
+  const code = String(formData.get("soul_coupon") ?? "").trim().toUpperCase().slice(0, 40);
+  if (!classId) return;
+  await createAdminClient().from("lcp_classes").update({ soul_coupon: code || null }).eq("id", classId);
+  revalidatePath("/app/admin");
+}
+
 // Creates the Guided product and its three prices in Stripe, once. Safe to press again.
 async function setUpStripe() {
   "use server";
@@ -89,6 +101,7 @@ export default async function AdminPage() {
     stripePrices(),
   ]);
   const hook = await webhookStatus();
+  const { data: classes } = await createAdminClient().from("lcp_classes").select("id, name, start_date, soul_coupon").order("start_date");
   const offer = offerData as Offer;
   const windows = (settings?.find((s) => s.key === "founding_windows")?.value as { label: string; opens: string; closes: string }[]) ?? [];
 
@@ -130,6 +143,27 @@ export default async function AdminPage() {
         <p className="eyebrow">Admin</p>
         <h1 className="mt-1 text-[38px]">Program admin</h1>
         <Link href="/app/admin/content" className="btn btn-outline mt-4">Videos, resources &amp; Gatherings →</Link>
+      </section>
+
+      <section className="card flex flex-col gap-3 p-6">
+        <h2 className="text-[26px]">Soul Studio member codes</h2>
+        <p className="max-w-2xl text-[15px] text-ink-soft">
+          One Payhip coupon per class, 100% off and limited to the SOUL Challenges in the weekly Resources. Members see their class&rsquo;s code on each week&rsquo;s Resources tab. Create the coupon in Payhip first, then enter the same code here.
+        </p>
+        <ul className="flex flex-col gap-3">
+          {(classes ?? []).map((c) => (
+            <li key={c.id as string}>
+              <form action={saveSoulCoupon} className="flex flex-col gap-2 sm:flex-row sm:items-end">
+                <input type="hidden" name="class_id" value={c.id as string} />
+                <label className="ui flex flex-1 flex-col gap-1.5 text-[13px] font-semibold" htmlFor={`coupon-${c.id}`}>
+                  {c.name as string} class
+                  <input id={`coupon-${c.id}`} name="soul_coupon" defaultValue={(c.soul_coupon as string | null) ?? ""} placeholder="e.g. LIFECHARTER-NOV26" className="field-input font-normal uppercase" />
+                </label>
+                <button className="btn btn-outline min-h-11">Save code</button>
+              </form>
+            </li>
+          ))}
+        </ul>
       </section>
 
       <section className="card flex flex-col gap-3 p-6">

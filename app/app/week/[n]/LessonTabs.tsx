@@ -21,6 +21,7 @@ export default function LessonTabs({
   initialTab,
   videoId,
   resources,
+  soulCoupon,
   transcript,
 }: {
   week: number;
@@ -28,6 +29,7 @@ export default function LessonTabs({
   initialTab?: string;
   videoId: string | null;
   resources: Resource[];
+  soulCoupon?: string | null;
   transcript: React.ReactNode;
 }) {
   const valid = TABS.some((t) => t.id === initialTab);
@@ -115,6 +117,7 @@ export default function LessonTabs({
 
         {tab === "resources" && (
           <div className="flex flex-col gap-3">
+            {soulCoupon && resources.some((r) => r.url.includes("payhip.com")) && <SoulCoupon code={soulCoupon} />}
             {resources.length === 0 ? (
               <div className="card p-8 text-ink-soft">No extra resources for this week yet.</div>
             ) : (
@@ -128,6 +131,32 @@ export default function LessonTabs({
           </div>
         )}
       </div>
+    </div>
+  );
+}
+
+// The class's Soul Studio code: the SOUL Challenges suggested here are free for members.
+function SoulCoupon({ code }: { code: string }) {
+  const [copied, setCopied] = useState(false);
+  return (
+    <div className="card-warm flex flex-col gap-2 p-6">
+      <p className="eyebrow">Included with your Program</p>
+      <p className="text-[16px] text-ink">
+        The Soul Studio SOUL Challenges suggested below are yours at no cost. At checkout in the Soul Studio, enter your member code:
+      </p>
+      <div className="ui flex flex-wrap items-center gap-3">
+        <span className="rounded-lg border border-gold bg-paper px-4 py-2 font-mono text-[18px] font-semibold tracking-wider text-teal">{code}</span>
+        <button
+          type="button"
+          onClick={() => {
+            navigator.clipboard?.writeText(code).then(() => { setCopied(true); setTimeout(() => setCopied(false), 2000); }).catch(() => {});
+          }}
+          className="btn btn-outline min-h-11"
+        >
+          {copied ? "Copied" : "Copy code"}
+        </button>
+      </div>
+      <p className="ui text-[13px] text-ink-soft" aria-live="polite">This code is just for you and your class. Please keep it within the Program.</p>
     </div>
   );
 }
