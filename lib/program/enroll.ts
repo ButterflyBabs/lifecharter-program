@@ -107,3 +107,28 @@ export async function fulfillCheckout(session: Stripe.Checkout.Session) {
 
   return { already: false, userId, isNew };
 }
+
+/**
+ * A full refund ends that member's Program access (7-day refund guarantee): the enrollment becomes
+ * "refunded" (which also frees a founding seat) and any remaining 3-payment plan is cancelled so no
+ * more payments are taken. Partial refunds change nothing. Safe to run more than once.
+ */
+export async function handleRefund(charge: Stripe.Charge) {
+  if (!charge.refunded) return { partial: true };
+  const customerId = typeof charge.customer === "string" ? charge.customer : charge.customer?.id;
+  if (!customerId) return { noCustomer: true };
+  const admin = createAdminClient();
+  const { data: rows } = await admin
+    .from("lcp_enrollments")
+    .select("id, payment_plan, status")
+    .eq("stripe_customer_id", customerId)
+    .in("status", ["active", "paused"]);
+  if (!rows?.length) return { none: true };
+  await admin.from("lcp_enrollments").update({ status: "refunded" }).in("id", rows.map((r) => r.id));
+  if (rows.some((r) => r.payment_plan === "three_pay")) {
+    const stripe = getStripe();
+    const subs = await stripe.subscriptions.list({ customer: customerId, status: "active", limit: 10 });
+    for (const sub of subs.data) if (sub.metadata?.flow === "lcp") await stripe.subscriptions.cancel(sub.id);
+  }
+  return { refunded: rows.length };
+}

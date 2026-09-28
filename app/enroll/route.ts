@@ -3,6 +3,7 @@ import { getStripe, PRICE_KEYS } from "@/lib/stripe";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { APP_URL, nextClass } from "@/lib/program/enroll";
 import type { Offer } from "@/lib/program/offer";
+import { getMember } from "@/lib/program/member";
 
 export const dynamic = "force-dynamic";
 
@@ -13,6 +14,10 @@ const SALES_PAGE = "https://www.amilynnecarroll.com/life-charter";
  *   lifecharter.life/enroll?plan=full       (founding $797 while a founding window is open, otherwise $997)
  *   lifecharter.life/enroll?plan=three_pay  (founding only: 3 × $297)
  * Sends the buyer straight to Stripe Checkout.
+ *
+ * Admin test (Babs, 2026-09-28): &test=1 works while enrollment is closed, but only for a signed-in
+ * Program admin (cm_is_admin), so Babs can run one real purchase end to end before launch.
+ * Everyone else still gets "Enrollment isn't open".
  */
 export async function GET(request: Request) {
   const url = new URL(request.url);
@@ -25,9 +30,10 @@ export async function GET(request: Request) {
   } catch {
     return NextResponse.redirect(`${APP_URL}/enroll/closed`, 303);
   }
-  if (!offer?.enrollment_open) return NextResponse.redirect(`${APP_URL}/enroll/closed`, 303);
+  const adminTest = url.searchParams.get("test") === "1" && Boolean((await getMember())?.isAdmin);
+  if (!offer?.enrollment_open && !adminTest) return NextResponse.redirect(`${APP_URL}/enroll/closed`, 303);
 
-  const founding = offer.founding_open;
+  const founding = offer?.founding_open || adminTest;
   if (plan === "three_pay" && !founding) return NextResponse.redirect(`${APP_URL}/enroll/closed?reason=plan`, 303);
 
   const cls = await nextClass();
@@ -42,7 +48,8 @@ export async function GET(request: Request) {
     return NextResponse.redirect(`${APP_URL}/enroll/closed`, 303);
   }
 
-  const metadata = { flow: "lcp", plan, founding: String(founding), class_id: cls.id, level: "guided" };
+  const metadata: Record<string, string> = { flow: "lcp", plan, founding: String(founding), class_id: cls.id, level: "guided" };
+  if (adminTest) metadata.admin_test = "true";
   const session = await stripe.checkout.sessions.create({
     mode: plan === "three_pay" ? "subscription" : "payment",
     line_items: [{ price: price.id, quantity: 1 }],

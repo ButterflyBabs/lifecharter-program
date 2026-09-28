@@ -1,11 +1,12 @@
 import { NextResponse } from "next/server";
 import type Stripe from "stripe";
 import { getStripe } from "@/lib/stripe";
-import { fulfillCheckout } from "@/lib/program/enroll";
+import { fulfillCheckout, handleRefund } from "@/lib/program/enroll";
 
 export const dynamic = "force-dynamic";
 
-// Stripe webhook for the LifeCharter Program. Only acts on checkouts tagged metadata.flow = "lcp".
+// Stripe webhook for the LifeCharter Program. Acts on checkouts tagged metadata.flow = "lcp", and on
+// full refunds for a Program member (ends their access).
 export async function POST(request: Request) {
   const secret = process.env.STRIPE_WEBHOOK_SECRET;
   if (!secret) return NextResponse.json({ error: "webhook not configured" }, { status: 503 });
@@ -28,6 +29,15 @@ export async function POST(request: Request) {
     } catch (e) {
       console.error("lcp fulfil:", (e as Error).message);
       return NextResponse.json({ error: "fulfilment failed" }, { status: 500 }); // Stripe retries
+    }
+  }
+
+  if (event.type === "charge.refunded") {
+    try {
+      await handleRefund(event.data.object as Stripe.Charge);
+    } catch (e) {
+      console.error("lcp refund:", (e as Error).message);
+      return NextResponse.json({ error: "refund handling failed" }, { status: 500 }); // Stripe retries
     }
   }
 

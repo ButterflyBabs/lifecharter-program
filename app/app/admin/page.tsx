@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { revalidatePath } from "next/cache";
 import { getMember } from "@/lib/program/member";
 import { createClient } from "@/lib/supabase/server";
+import type Stripe from "stripe";
 import { getStripe, PRICE_SPECS, PRODUCT_NAME } from "@/lib/stripe";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { formatDeadline, type Offer } from "@/lib/program/offer";
@@ -21,6 +22,34 @@ async function stripePrices() {
   } catch {
     return null;
   }
+}
+
+// The Program's webhook in Stripe, and whether it already sends refunds (which end access).
+const WEBHOOK_EVENTS = ["checkout.session.completed", "checkout.session.async_payment_succeeded", "charge.refunded"] as const;
+async function webhookStatus(): Promise<{ found: boolean; refunds: boolean } | null> {
+  if (!has("STRIPE_SECRET_KEY")) return null;
+  try {
+    const list = await getStripe().webhookEndpoints.list({ limit: 100 });
+    const ep = list.data.find((e) => e.url.includes("lifecharter.life/api/stripe/webhook"));
+    if (!ep) return { found: false, refunds: false };
+    return { found: true, refunds: ep.enabled_events.includes("*") || ep.enabled_events.includes("charge.refunded") };
+  } catch {
+    return null;
+  }
+}
+
+// Adds refunds (and the checkout events) to the Program's existing Stripe webhook. Safe to press again.
+async function enableRefundEvents() {
+  "use server";
+  const member = await getMember();
+  if (!member?.isAdmin) throw new Error("admins only");
+  const stripe = getStripe();
+  const list = await stripe.webhookEndpoints.list({ limit: 100 });
+  const ep = list.data.find((e) => e.url.includes("lifecharter.life/api/stripe/webhook"));
+  if (!ep || ep.enabled_events.includes("*")) return;
+  const events = Array.from(new Set([...ep.enabled_events, ...WEBHOOK_EVENTS])) as Stripe.WebhookEndpointUpdateParams.EnabledEvent[];
+  await stripe.webhookEndpoints.update(ep.id, { enabled_events: events });
+  revalidatePath("/app/admin");
 }
 
 // Creates the Guided product and its three prices in Stripe, once. Safe to press again.
@@ -59,6 +88,7 @@ export default async function AdminPage() {
     supabase.from("lcp_settings").select("key, value"),
     stripePrices(),
   ]);
+  const hook = await webhookStatus();
   const offer = offerData as Offer;
   const windows = (settings?.find((s) => s.key === "founding_windows")?.value as { label: string; opens: string; closes: string }[]) ?? [];
 
@@ -103,6 +133,14 @@ export default async function AdminPage() {
       </section>
 
       <section className="card flex flex-col gap-3 p-6">
+        <h2 className="text-[26px]">Test an enrollment</h2>
+        <p className="max-w-2xl text-[15px] text-ink-soft">
+          A real purchase from start to finish, even while enrollment is closed. This works only for you, signed in as admin. It uses the founding 3 &times; $297 plan, so today&rsquo;s charge is $297. Use an email address other than this admin one at checkout, so you see exactly what a new member sees. Afterwards, refund the payment and cancel the subscription in Stripe.
+        </p>
+        <a href="/enroll?plan=three_pay&test=1" className="btn btn-primary self-start">Start a test enrollment</a>
+      </section>
+
+      <section className="card flex flex-col gap-3 p-6">
         <h2 className="text-[26px]">Checkout set-up</h2>
         <ul className="ui flex flex-col gap-2 text-[14px]">
           {checks.map(([k, why]) => (
@@ -115,7 +153,18 @@ export default async function AdminPage() {
             <span className={pricesReady ? "text-teal" : "text-terra-ink"}><span aria-hidden>{pricesReady ? "✓" : "○"}</span><span className="sr-only">{pricesReady ? "Set:" : "Missing:"}</span></span>
             <span><b>Stripe products</b> · Guided founding $797, founding 3 × $297, regular $997</span>
           </li>
+          {hook && (
+            <li className="flex gap-3">
+              <span className={hook.refunds ? "text-teal" : "text-terra-ink"}><span aria-hidden>{hook.refunds ? "✓" : "○"}</span><span className="sr-only">{hook.refunds ? "Set:" : "Missing:"}</span></span>
+              <span><b>Refunds end access</b> · {hook.found ? (hook.refunds ? "Stripe tells the Program about refunds" : "Stripe isn't sending refunds to the Program yet") : "No Program webhook found in Stripe"}</span>
+            </li>
+          )}
         </ul>
+        {hook?.found && !hook.refunds && (
+          <form action={enableRefundEvents}>
+            <button className="btn btn-primary mt-2">Turn on refund notifications</button>
+          </form>
+        )}
         {has("STRIPE_SECRET_KEY") && !pricesReady && (
           <form action={setUpStripe}>
             <button className="btn btn-primary mt-2">Create the Stripe products</button>
