@@ -42,8 +42,8 @@ export default async function WeekPage({ params, searchParams }: PageProps<"/app
 
   const prevNext = (
     <div className="ui flex justify-between text-[13px] font-semibold">
-      {n > 0 ? <Link href={`/app/week/${n - 1}`} className="text-teal hover:underline">← Week {n - 1}</Link> : <span />}
-      {n < 12 ? <Link href={`/app/week/${n + 1}`} className="text-teal hover:underline">Week {n + 1} →</Link> : <span />}
+      {n > 0 ? <Link href={`/app/week/${n - 1}`} className="inline-flex min-h-11 items-center px-2 text-teal hover:underline">← Week {n - 1}</Link> : <span />}
+      {n < 12 ? <Link href={`/app/week/${n + 1}`} className="inline-flex min-h-11 items-center px-2 text-teal hover:underline">Week {n + 1} →</Link> : <span />}
     </div>
   );
 
@@ -80,7 +80,7 @@ export default async function WeekPage({ params, searchParams }: PageProps<"/app
       {header}
       {w?.care && (
         <div className="ui max-w-3xl rounded-xl border border-gold bg-paper px-5 py-3 text-[13px] leading-relaxed text-ink-soft">
-          <span className="mb-0.5 block text-[11px] font-bold uppercase tracking-[0.14em] text-terra">{w.care_label ?? "A word of care"}</span>
+          <span className="mb-0.5 block text-[12px] font-bold uppercase tracking-[0.14em] text-terra-ink">{w.care_label ?? "A word of care"}</span>
           {w.care}
         </div>
       )}

@@ -38,9 +38,9 @@ export default function ForgotPasswordPage() {
           Email
           <input id="email" type="email" autoComplete="email" required value={email} onChange={(e) => setEmail(e.target.value)} className="field-input font-normal" />
         </label>
-        {error && <p className="text-[13px] text-terra" role="alert">{error}</p>}
+        {error && <p className="text-[13px] text-terra-ink" role="alert">{error}</p>}
         <button type="submit" disabled={state === "busy"} className="btn btn-primary disabled:opacity-60">{state === "busy" ? "Sending…" : "Email me a link"}</button>
-        <Link href="/sign-in" className="text-center text-[13px] text-teal underline underline-offset-2">Back to sign in</Link>
+        <Link href="/sign-in" className="inline-flex min-h-11 items-center justify-center text-center text-[14px] text-teal underline underline-offset-2">Back to sign in</Link>
       </form>
     </AuthShell>
   );

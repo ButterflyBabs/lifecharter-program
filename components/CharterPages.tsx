@@ -105,7 +105,7 @@ export default function CharterPages({ week }: { week: number }) {
 
   return (
     <div className="flex flex-col gap-8">
-      <p className={`ui sticky top-2 z-10 self-end rounded-full bg-paper px-4 py-1.5 text-[12px] font-semibold shadow ${save === "error" ? "text-terra" : "text-ink-soft"}`} aria-live="polite">
+      <p className={`ui sticky top-[72px] lg:top-2 z-10 self-end rounded-full bg-paper px-4 py-1.5 text-[12px] font-semibold shadow ${save === "error" ? "text-terra-ink" : "text-ink-soft"}`} aria-live="polite">
         {status}
       </p>
       {sections.map((s) => (
@@ -133,7 +133,7 @@ function Label({ text, hint, htmlFor }: { text: string; hint?: string; htmlFor?:
   );
 }
 
-function Scale({ id, value, onPick, size = 34 }: { id: string; value?: number; onPick: (n: number) => void; size?: number }) {
+function Scale({ id, value, onPick, size = 44 }: { id: string; value?: number; onPick: (n: number) => void; size?: number }) {
   return (
     <div className="flex flex-wrap gap-1.5" role="radiogroup" aria-labelledby={id}>
       {Array.from({ length: 10 }, (_, i) => i + 1).map((n) => (
@@ -144,7 +144,7 @@ function Scale({ id, value, onPick, size = 34 }: { id: string; value?: number; o
           aria-checked={value === n}
           onClick={() => onPick(n)}
           style={{ width: size, height: size }}
-          className={`ui rounded-full border text-[12px] font-semibold transition ${
+          className={`ui rounded-full border text-[14px] font-semibold transition ${
             value === n ? "border-teal bg-teal text-paper" : "border-ocean bg-white text-teal hover:bg-mist"
           }`}
         >
@@ -218,16 +218,16 @@ function FieldView({
           <Label text={field.label} hint={field.hint} />
           {groups.map((g) => (
             <div key={g.stage || "all"} className="flex flex-col gap-2">
-              {g.stage && <p className="ui border-b border-line pb-1 text-[10px] font-bold uppercase tracking-[0.16em] text-terra">{g.stage}</p>}
+              {g.stage && <p className="ui border-b border-line pb-1 text-[12px] font-bold uppercase tracking-[0.16em] text-terra-ink">{g.stage}</p>}
               {g.dims.map((item) => {
                 const id = `f-${field.key}-${item}`;
                 return (
                   <div key={item} className="flex flex-col gap-1.5 sm:flex-row sm:items-center sm:gap-4">
                     <span id={id} className="ui w-48 shrink-0 text-[13px] font-semibold">
                       {item}
-                      {showCompare && <span className="ml-2 text-[11px] font-medium text-ink-soft">Week 0: {compare[item] ?? "–"}</span>}
+                      {showCompare && <span className="ml-2 text-[12px] font-medium text-ink-soft">Week 0: {compare[item] ?? "–"}</span>}
                     </span>
-                    <Scale id={id} size={30} value={v[item]} onPick={(n) => onChange(field.key, { ...v, [item]: n }, true)} />
+                    <Scale id={id} value={v[item]} onPick={(n) => onChange(field.key, { ...v, [item]: n }, true)} />
                   </div>
                 );
               })}
@@ -253,7 +253,7 @@ function FieldView({
                 type="button"
                 aria-pressed={picked.includes(opt)}
                 onClick={() => toggle(opt)}
-                className={`ui rounded-full border px-3 py-1.5 text-[13px] font-semibold transition ${
+                className={`ui min-h-11 rounded-full border px-3.5 py-2 text-[14px] font-semibold transition ${
                   picked.includes(opt) ? "border-teal bg-teal text-paper" : "border-line bg-white text-teal hover:border-ocean"
                 }`}
               >
@@ -272,7 +272,7 @@ function FieldView({
         onChange(field.key, next, immediate);
       };
       const pill = (on: boolean) =>
-        `ui rounded-full border px-2.5 py-1 text-[12px] font-semibold transition ${on ? "border-teal bg-teal text-paper" : "border-line bg-white text-teal hover:border-ocean"}`;
+        `ui min-h-11 rounded-full border px-3.5 py-2 text-[13px] font-semibold transition ${on ? "border-teal bg-teal text-paper" : "border-line bg-white text-teal hover:border-ocean"}`;
       return (
         <div className="card flex flex-col gap-3 p-5">
           <Label text={field.label} hint="write each belief, then choose" />
@@ -305,7 +305,7 @@ function FieldView({
           <Label text={field.label} />
           {days.map((d, i) => (
             <div key={i} className="flex items-center gap-3">
-              <span className="ui w-14 shrink-0 text-[11px] font-bold uppercase tracking-[0.1em] text-terra">Day {i + 1}</span>
+              <span className="ui w-14 shrink-0 text-[12px] font-bold uppercase tracking-[0.1em] text-terra-ink">Day {i + 1}</span>
               <input
                 aria-label={`Day ${i + 1}`}
                 className="field-input"

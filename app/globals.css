@@ -10,8 +10,12 @@
   --teal: #0f5b63;
   --ocean: #4ea7a1;
   --mist: #dde9e7;
-  --terra: #c76f56;
-  --terra-dark: #b45f47;
+  /* Terracotta for text and buttons, deepened for readability (Babs, 2026-09-28): #c76f56 failed
+     contrast with white text and on cream. --terra-soft keeps the original for decoration only. */
+  --terra: #a0503a;
+  --terra-dark: #86412f;
+  --terra-ink: #8c4331; /* terracotta text on blush/cream */
+  --terra-soft: #c76f56;
   --blush: #f5d8cf;
   --blush-soft: #fcefea;
   --gold: #d4af63;
@@ -29,6 +33,8 @@
   --color-ocean: var(--ocean);
   --color-mist: var(--mist);
   --color-terra: var(--terra);
+  --color-terra-ink: var(--terra-ink);
+  --color-terra-soft: var(--terra-soft);
   --color-blush: var(--blush);
   --color-gold: var(--gold);
   --font-serif: var(--font-garamond), Garamond, Georgia, serif;
@@ -66,10 +72,10 @@ h3 {
 .eyebrow {
   font-family: var(--font-montserrat), Arial, sans-serif;
   font-weight: 700;
-  font-size: 11px;
-  letter-spacing: 0.16em;
+  font-size: 12px;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--terra);
+  color: var(--terra-ink);
 }
 
 .ui {
@@ -132,8 +138,12 @@ h3 {
 }
 .field-input:focus {
   outline: none;
-  border-color: var(--ocean);
-  box-shadow: 0 0 0 3px rgba(78, 167, 161, 0.18);
+  border-color: var(--teal);
+  box-shadow: 0 0 0 3px rgba(78, 167, 161, 0.35);
+}
+.field-input:focus-visible {
+  outline: 2px solid var(--teal);
+  outline-offset: 1px;
 }
 
 .prose-lc {

@@ -36,7 +36,7 @@ export default function NotifyForm({ level, name }: { level: "self_guided" | "pr
           {state === "busy" ? "…" : "Notify me"}
         </button>
       </div>
-      {state === "error" && <p className="text-terra">That email didn&rsquo;t look right. Check it and try again.</p>}
+      {state === "error" && <p className="text-terra-ink">That email didn&rsquo;t look right. Check it and try again.</p>}
     </form>
   );
 }

@@ -51,14 +51,14 @@ export default async function PathPage() {
           <p className="ui text-[13px] text-ink-soft">
             {open(focus) ? "Watch the lesson, write your Charter pages, live the Soul Challenge." : `Opens ${formatDate(weekOpens(cls, focus))}`}
           </p>
-          <span className="ui mt-2 text-[13px] font-semibold text-terra group-hover:underline">{open(focus) ? "Open this week →" : "Preview →"}</span>
+          <span className="ui mt-2 text-[13px] font-semibold text-terra-ink group-hover:underline">{open(focus) ? "Open this week →" : "Preview →"}</span>
         </Link>
         <Link href="/app/gatherings" className="card-warm group flex flex-col gap-2 p-6 transition hover:-translate-y-0.5">
           <p className="eyebrow">Next Weekly Gathering</p>
           <h2 className="text-[26px]">{formatDate(gathering)}</h2>
           <p className="ui text-[14px] text-ink">6:00pm MT, live with Babs and every class</p>
           <p className="text-[14px] text-ink-soft">Bring your Soul Challenge notes.</p>
-          <span className="ui mt-1 text-[13px] font-semibold text-terra group-hover:underline">Zoom link and replays →</span>
+          <span className="ui mt-1 text-[13px] font-semibold text-terra-ink group-hover:underline">Zoom link and replays →</span>
         </Link>
       </section>
 
@@ -66,10 +66,10 @@ export default async function PathPage() {
         <h2 className="text-[28px]">Your 13-week path</h2>
         {STAGES.map((stage) => (
           <div key={stage} className="flex flex-col gap-2">
-            <p className="ui text-[11px] font-bold uppercase tracking-[0.14em] text-ink-soft">
+            <h3 className="ui text-[12px] font-bold uppercase tracking-[0.14em] text-ink-soft" style={{ fontFamily: "inherit", color: "var(--ink-soft)" }}>
               {stage}
               {STAGE_NOTES[stage] && <span className="ml-2 font-serif text-[15px] font-medium normal-case italic tracking-normal text-teal">{STAGE_NOTES[stage]}</span>}
-            </p>
+            </h3>
             <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
               {WEEKS.filter((w) => w.stage === stage).map((w) => {
                 const isOpenNow = open(w.n);
@@ -78,15 +78,15 @@ export default async function PathPage() {
                   <Link
                     key={w.n}
                     href={`/app/week/${w.n}`}
-                    className={`card flex items-center justify-between gap-3 px-5 py-4 transition hover:-translate-y-0.5 ${isOpenNow ? "" : "opacity-70"}`}
+                    className={`card flex items-center justify-between gap-3 px-5 py-4 transition hover:-translate-y-0.5 ${isOpenNow ? "" : "bg-ivory"}`}
                   >
                     <span className="flex flex-col">
-                      <span className="ui text-[11px] font-bold tracking-[0.08em] text-ink-soft">WEEK {w.n}</span>
+                      <span className="ui text-[12px] font-bold tracking-[0.08em] text-ink-soft">WEEK {w.n}</span>
                       <span className="font-serif text-[21px] leading-tight text-teal">{w.title}</span>
                     </span>
                     <span
-                      className={`ui whitespace-nowrap rounded-full px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.08em] ${
-                        !isOpenNow ? "border border-line text-ink-soft" : started.has(w.n) ? "bg-blush text-terra" : "bg-mist text-teal"
+                      className={`ui whitespace-nowrap rounded-full px-2.5 py-1 text-[12px] font-semibold uppercase tracking-[0.08em] ${
+                        !isOpenNow ? "border border-line text-ink-soft" : started.has(w.n) ? "bg-blush text-terra-ink" : "bg-mist text-teal"
                       }`}
                     >
                       {status}

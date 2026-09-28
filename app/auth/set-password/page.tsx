@@ -39,7 +39,7 @@ export default function SetPasswordPage() {
           Type it again
           <input id="pw2" type="password" autoComplete="new-password" required value={confirm} onChange={(e) => setConfirm(e.target.value)} className="field-input font-normal" />
         </label>
-        {error && <p className="text-[13px] text-terra" role="alert">{error}</p>}
+        {error && <p className="text-[13px] text-terra-ink" role="alert">{error}</p>}
         <button type="submit" disabled={busy} className="btn btn-primary disabled:opacity-60">{busy ? "Saving…" : "Save and step inside"}</button>
       </form>
     </AuthShell>

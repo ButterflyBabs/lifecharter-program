@@ -35,11 +35,11 @@ export default function SignInForm({ next }: { next: string }) {
         Password
         <input id="password" type="password" autoComplete="current-password" required value={password} onChange={(e) => setPassword(e.target.value)} className="field-input font-normal" />
       </label>
-      {error && <p className="text-[13px] text-terra" role="alert">{error}</p>}
+      {error && <p className="text-[13px] text-terra-ink" role="alert">{error}</p>}
       <button type="submit" disabled={busy} className="btn btn-primary mt-1 disabled:opacity-60">
         {busy ? "Signing in…" : "Sign in"}
       </button>
-      <a href="/forgot-password" className="text-center text-[13px] text-teal underline underline-offset-2">
+      <a href="/forgot-password" className="inline-flex min-h-11 items-center justify-center text-center text-[14px] text-teal underline underline-offset-2">
         Forgot your password?
       </a>
     </form>

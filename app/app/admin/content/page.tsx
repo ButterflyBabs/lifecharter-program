@@ -1,4 +1,5 @@
 import Link from "next/link";
+import ConfirmSubmit from "@/components/ConfirmSubmit";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getMember } from "@/lib/program/member";
@@ -34,7 +35,7 @@ export default async function AdminContentPage() {
   return (
     <div className="fade-in flex flex-col gap-8">
       <section className="flex flex-col gap-1">
-        <Link href="/app/admin" className="ui text-[13px] font-semibold text-teal hover:underline">← Program admin</Link>
+        <Link href="/app/admin" className="ui inline-flex min-h-11 items-center self-start text-[14px] font-semibold text-teal hover:underline">← Program admin</Link>
         <h1 className="mt-1 text-[38px]">Videos &amp; Gatherings</h1>
         <p className="max-w-2xl text-ink-soft">Paste a Vimeo link from the address bar of the video&rsquo;s page, or its share link. Changes show in the app right away.</p>
       </section>
@@ -66,7 +67,9 @@ export default async function AdminContentPage() {
                 </span>
                 <form action={deleteReplay}>
                   <input type="hidden" name="id" value={g.id} />
-                  <button className="text-terra underline">Remove</button>
+                  <ConfirmSubmit message="Remove this Gathering replay? Members will no longer see it." className="inline-flex min-h-11 items-center px-2 text-terra-ink underline" label={`Remove replay from ${new Date(g.starts_at).toLocaleDateString("en-US", { timeZone: "America/Denver", month: "short", day: "numeric" })}`}>
+                    Remove
+                  </ConfirmSubmit>
                 </form>
               </li>
             ))}
@@ -84,7 +87,7 @@ export default async function AdminContentPage() {
             <FeedbackForm key={w.n} action={saveLessonForm} button="Save" buttonClass="btn btn-outline md:mt-6" className="card grid gap-3 p-5 md:grid-cols-[180px_1fr_1fr_auto] md:items-start">
               <input type="hidden" name="week" value={w.n} />
               <div>
-                <p className="ui text-[11px] font-bold uppercase tracking-[0.1em] text-ink-soft">Week {w.n}</p>
+                <p className="ui text-[12px] font-bold uppercase tracking-[0.1em] text-ink-soft">Week {w.n}</p>
                 <p className="font-serif text-[20px] leading-tight text-teal">{w.title}</p>
                 <p className="ui mt-1 text-[12px] text-ink-soft">{m?.video_id ? "✓ Video added" : "No video yet"}</p>
               </div>
@@ -95,7 +98,7 @@ export default async function AdminContentPage() {
               <label className={label} htmlFor={`res-${w.n}`}>
                 Resources
                 <textarea id={`res-${w.n}`} name="resources" rows={2} defaultValue={res} className="field-input font-normal" />
-                {STATIC_RESOURCES[w.n] && <span className="text-[11px] font-medium text-ink-soft">Always included: {STATIC_RESOURCES[w.n].map((r) => r.title).join(", ")}</span>}
+                {STATIC_RESOURCES[w.n] && <span className="text-[12px] font-medium text-ink-soft">Always included: {STATIC_RESOURCES[w.n].map((r) => r.title).join(", ")}</span>}
               </label>
             </FeedbackForm>
           );

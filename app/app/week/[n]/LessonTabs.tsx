@@ -49,8 +49,20 @@ export default function LessonTabs({
             role="tab"
             id={`tab-${t.id}`}
             aria-selected={tab === t.id}
+            aria-controls="lesson-panel"
+            tabIndex={tab === t.id ? 0 : -1}
             onClick={() => choose(t.id)}
-            className={`rounded-full border px-4 py-2 text-[13px] font-semibold transition ${
+            onKeyDown={(e) => {
+              // Arrow keys move between tabs (the standard tabs pattern).
+              const i = TABS.findIndex((x) => x.id === t.id);
+              const next = e.key === "ArrowRight" ? TABS[(i + 1) % TABS.length] : e.key === "ArrowLeft" ? TABS[(i - 1 + TABS.length) % TABS.length] : e.key === "Home" ? TABS[0] : e.key === "End" ? TABS[TABS.length - 1] : null;
+              if (next) {
+                e.preventDefault();
+                choose(next.id);
+                document.getElementById(`tab-${next.id}`)?.focus();
+              }
+            }}
+            className={`min-h-11 rounded-full border px-4 py-2 text-[14px] font-semibold transition ${
               tab === t.id ? "border-teal bg-teal text-paper" : "border-line bg-paper text-ink hover:border-ocean"
             }`}
           >
@@ -59,7 +71,7 @@ export default function LessonTabs({
         ))}
       </div>
 
-      <div role="tabpanel" aria-labelledby={`tab-${tab}`}>
+      <div role="tabpanel" id="lesson-panel" tabIndex={0} aria-labelledby={`tab-${tab}`}>
         {tab === "video" &&
           (videoId ? (
             <div className="card overflow-hidden">
@@ -96,7 +108,7 @@ export default function LessonTabs({
               Prefer paper? Print this week&rsquo;s pages and write by hand. It ends with your LifeCharter chapter page. Anything you type in the Charter pages tab is saved to your account instead.
             </p>
             <a href={`/app/handout/${week}`} target="_blank" rel="noopener" className="btn btn-primary mt-2">
-              Open the handout (PDF)
+              Open the handout (PDF)<span className="sr-only"> (opens in a new tab)</span>
             </a>
           </div>
         )}
@@ -108,7 +120,7 @@ export default function LessonTabs({
             ) : (
               resources.map((r) => (
                 <a key={r.url} href={r.url} target="_blank" rel="noopener" className="card flex flex-col gap-1 p-6 transition hover:-translate-y-0.5">
-                  <span className="font-serif text-[22px] text-teal">{r.title} ↗</span>
+                  <span className="font-serif text-[22px] text-teal">{r.title} <span aria-hidden>↗</span><span className="sr-only"> (opens in a new tab)</span></span>
                   {r.description && <span className="text-[15px] text-ink-soft">{r.description}</span>}
                 </a>
               ))

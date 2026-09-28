@@ -107,12 +107,12 @@ export default async function AdminPage() {
         <ul className="ui flex flex-col gap-2 text-[14px]">
           {checks.map(([k, why]) => (
             <li key={k} className="flex gap-3">
-              <span className={has(k) ? "text-teal" : "text-terra"}>{has(k) ? "✓" : "○"}</span>
+              <span className={has(k) ? "text-teal" : "text-terra-ink"}><span aria-hidden>{has(k) ? "✓" : "○"}</span><span className="sr-only">{has(k) ? "Set:" : "Missing:"}</span></span>
               <span><b>{k}</b> · {why}</span>
             </li>
           ))}
           <li className="flex gap-3">
-            <span className={pricesReady ? "text-teal" : "text-terra"}>{pricesReady ? "✓" : "○"}</span>
+            <span className={pricesReady ? "text-teal" : "text-terra-ink"}><span aria-hidden>{pricesReady ? "✓" : "○"}</span><span className="sr-only">{pricesReady ? "Set:" : "Missing:"}</span></span>
             <span><b>Stripe products</b> · Guided founding $797, founding 3 × $297, regular $997</span>
           </li>
         </ul>
@@ -148,7 +148,7 @@ export default async function AdminPage() {
         ) : (
           <div className="overflow-x-auto">
             <table className="ui w-full text-left text-[13px]">
-              <thead className="text-[11px] uppercase tracking-[0.1em] text-ink-soft">
+              <thead className="text-[12px] uppercase tracking-[0.1em] text-ink-soft">
                 <tr><th className="py-2 pr-4">Member</th><th className="pr-4">Class</th><th className="pr-4">Level</th><th className="pr-4">Payment</th><th className="pr-4">Status</th><th className="pr-4">Enrolled</th><th className="pr-4">Charter progress</th><th>Last worked on</th></tr>
               </thead>
               <tbody>

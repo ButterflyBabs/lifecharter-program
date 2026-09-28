@@ -33,7 +33,7 @@ export default function FeedbackForm({
           {pending ? "Saving…" : button}
         </button>
         {!pending && state && (
-          <span role="status" className={`ui text-[12px] font-semibold ${state.ok ? "text-teal" : "text-terra"}`}>
+          <span role="status" className={`ui text-[12px] font-semibold ${state.ok ? "text-teal" : "text-terra-ink"}`}>
             {state.message}
           </span>
         )}

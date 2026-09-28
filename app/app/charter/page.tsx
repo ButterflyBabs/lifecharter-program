@@ -75,7 +75,7 @@ export default async function CharterPage() {
                   <h2 className="text-[30px]">{w.n === 12 ? "Life Vision" : w.title}</h2>
                 </div>
                 {open && (
-                  <Link href={`/app/week/${w.n}?tab=charter`} className="ui text-[13px] font-semibold text-terra hover:underline">
+                  <Link href={`/app/week/${w.n}?tab=charter`} className="ui inline-flex min-h-11 items-center px-2 text-[14px] font-semibold text-terra-ink hover:underline">
                     {empty ? "Write this chapter →" : "Edit in Week " + w.n + " →"}
                   </Link>
                 )}
@@ -86,7 +86,7 @@ export default async function CharterPage() {
                 <dl className="grid gap-4 md:grid-cols-2">
                   {rows.map((r) => (
                     <div key={r.label} className="flex flex-col gap-1">
-                      <dt className="ui text-[11px] font-bold uppercase tracking-[0.12em] text-terra">{r.label}</dt>
+                      <dt className="ui text-[12px] font-bold uppercase tracking-[0.12em] text-terra-ink">{r.label}</dt>
                       <dd className="whitespace-pre-line text-[16px] leading-relaxed">
                         {r.parts.length ? r.parts.join("\n") : <span className="text-ink-soft">…</span>}
                       </dd>

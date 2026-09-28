@@ -14,7 +14,8 @@ export function parseVimeo(input: string): string | null {
 
 export function vimeoEmbedUrl(stored: string) {
   const [id, hash] = stored.split(":");
-  const params = new URLSearchParams({ title: "0", byline: "0", portrait: "0" });
+  // texttrack=en: show English captions by default when the video has them.
+  const params = new URLSearchParams({ title: "0", byline: "0", portrait: "0", texttrack: "en" });
   if (hash) params.set("h", hash);
   return `https://player.vimeo.com/video/${id}?${params}`;
 }

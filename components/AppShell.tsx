@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -45,6 +45,28 @@ export default function AppShell({
     setDrawer(false);
   }, [pathname]);
 
+  // Phone menu as a proper dialog: focus moves in, Escape closes, focus returns to the Menu button.
+  const menuButton = useRef<HTMLButtonElement>(null);
+  const drawerRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (!drawer) return;
+    const panel = drawerRef.current;
+    panel?.querySelector<HTMLElement>("a, button")?.focus();
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setDrawer(false);
+      if (e.key === "Tab" && panel) {
+        const els = Array.from(panel.querySelectorAll<HTMLElement>("a, button"));
+        if (!els.length) return;
+        const first = els[0], last = els[els.length - 1];
+        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+      }
+    };
+    document.addEventListener("keydown", onKey);
+    const button = menuButton.current;
+    return () => { document.removeEventListener("keydown", onKey); button?.focus(); };
+  }, [drawer]);
+
   function toggleCollapsed() {
     setCollapsed((c) => {
       try {
@@ -63,20 +85,20 @@ export default function AppShell({
       {drawer && (
         <div className="fixed inset-0 z-[60] lg:hidden" onClick={() => setDrawer(false)}>
           <div className="absolute inset-0 bg-black/40" />
-          <div className="absolute inset-y-0 left-0 w-[80%] max-w-[280px] shadow-2xl" onClick={(e) => e.stopPropagation()}>
+          <div id="lcp-mobile-menu" ref={drawerRef} role="dialog" aria-modal="true" aria-label="Menu" className="absolute inset-y-0 left-0 w-[80%] max-w-[280px] shadow-2xl" onClick={(e) => e.stopPropagation()}>
             <Sidebar weeks={weeks} isAdmin={isAdmin} collectiveUrl={collectiveUrl} pathname={pathname} onClose={() => setDrawer(false)} />
           </div>
         </div>
       )}
 
       <header className="sticky top-0 z-40 flex items-center justify-between border-b border-line bg-ivory/95 px-3 pb-2 pt-[max(0.5rem,env(safe-area-inset-top))] backdrop-blur lg:hidden">
-        <button onClick={() => setDrawer(true)} aria-label="Open menu" className="rounded-lg p-2 text-teal hover:bg-black/5">
+        <button ref={menuButton} onClick={() => setDrawer(true)} aria-label="Open menu" aria-expanded={drawer} aria-controls="lcp-mobile-menu" className="rounded-lg p-2.5 text-teal hover:bg-black/5">
           <Menu className="h-5 w-5" />
         </button>
         <Link href="/app" aria-label="LifeCharter Program home">
           <Image src="/brand/lifecharter-logo.png" alt="LifeCharter" width={900} height={300} className="h-auto w-[132px]" priority />
         </Link>
-        <span className="w-9" />
+        <span className="w-11" />
       </header>
 
       <div className={cx("flex flex-1 flex-col transition-[margin] duration-200", collapsed ? "lg:ml-16" : "lg:ml-56")}>
@@ -124,7 +146,7 @@ function Sidebar({
   const stages = [...new Set(weeks.map((w) => w.stage))];
 
   return (
-    <nav aria-label="LifeCharter Program" className="relative flex h-full flex-col overflow-y-auto overflow-x-hidden bg-gradient-to-b from-[#0F5B63] via-[#0C4A51] to-[#233238] text-[#F3EEE4]">
+    <nav aria-label="LifeCharter Program" className="[&_:focus-visible]:outline-[#F3E3BC] relative flex h-full flex-col overflow-y-auto overflow-x-hidden bg-gradient-to-b from-[#0F5B63] via-[#0C4A51] to-[#233238] text-[#F3EEE4]">
       {/* A thin dawn line in the LifeCharter palette. */}
       <div aria-hidden className="pointer-events-none sticky top-0 z-10 h-[3px] w-full shrink-0 bg-[linear-gradient(100deg,#F5D8CF_0%,#F0B58B_25%,#D4AF63_50%,#4EA7A1_78%,#0F5B63_100%)]" />
 
@@ -133,13 +155,13 @@ function Sidebar({
           <Image src="/brand/lifecharter-emblem.png" alt="" width={36} height={36} className="h-9 w-9 shrink-0 drop-shadow" />
           {!rail && (
             <span className="leading-tight">
-              <span className="ui block whitespace-nowrap text-[9px] font-semibold uppercase tracking-[0.14em] text-gold">The LifeCharter</span>
+              <span className="ui block whitespace-nowrap text-[12px] font-semibold uppercase tracking-[0.08em] text-gold">The LifeCharter</span>
               <span className="block font-serif text-[19px] font-medium text-[#FBF8F1]">Program</span>
             </span>
           )}
         </Link>
         {onClose && (
-          <button onClick={onClose} aria-label="Close menu" className="rounded-lg p-1.5 text-[#F3EEE4]/70 hover:bg-white/10">
+          <button onClick={onClose} aria-label="Close menu" className="rounded-lg p-2.5 text-[#F3EEE4]/85 hover:bg-white/10">
             <X className="h-5 w-5" />
           </button>
         )}
@@ -148,7 +170,7 @@ function Sidebar({
             onClick={onToggleRail}
             aria-label={rail ? "Expand menu" : "Collapse menu"}
             title={rail ? "Expand menu" : "Collapse menu"}
-            className="rounded-lg p-1.5 text-[#F3EEE4]/60 hover:bg-white/10 hover:text-white"
+            className="rounded-lg p-2.5 text-[#F3EEE4]/80 hover:bg-white/10 hover:text-white"
           >
             {rail ? <PanelLeftOpen className="h-4 w-4" /> : <PanelLeftClose className="h-4 w-4" />}
           </button>
@@ -157,21 +179,22 @@ function Sidebar({
 
       <div className={cx("ui flex flex-col gap-0.5", rail ? "px-2" : "px-2.5")}>
         {items.map((i) => (
-          <NavItem key={i.href} {...i} rail={rail} />
+          <NavItem key={i.href} {...i} rail={rail} onNavigate={onClose} />
         ))}
         <a
           href={collectiveUrl}
           title="The Collective"
+          aria-label={rail ? "The Collective" : undefined}
           className={cx(
-            "flex items-center rounded-lg py-1.5 text-[13px] text-[#F3EEE4]/85 transition hover:bg-white/[0.06] hover:text-white",
+            "flex min-h-11 items-center rounded-lg py-2.5 text-[14px] text-[#F3EEE4]/90 transition hover:bg-white/[0.06] hover:text-white",
             rail ? "justify-center px-0" : "gap-2.5 px-2.5",
           )}
         >
-          <Users className="h-[17px] w-[17px] shrink-0 text-[#F3EEE4]/60" />
+          <Users className="h-[18px] w-[18px] shrink-0 text-[#F3EEE4]/75" aria-hidden />
           {!rail && (
             <>
               <span className="flex-1">The Collective</span>
-              <span className="text-[11px] text-[#F3EEE4]/50">↗</span>
+              <span className="text-[13px] text-[#F3EEE4]/70" aria-hidden>↗</span>
             </>
           )}
         </a>
@@ -187,9 +210,11 @@ function Sidebar({
                   key={w.n}
                   href={`/app/week/${w.n}`}
                   title={`Week ${w.n} · ${w.title}${w.open ? "" : " (not open yet)"}`}
+                  aria-label={`Week ${w.n}: ${w.title}${w.current ? " (this week)" : ""}${w.open ? "" : " (not open yet)"}`}
+                  aria-current={active ? "page" : undefined}
                   className={cx(
-                    "grid h-7 w-7 place-items-center rounded-full text-[11px] tabular-nums transition",
-                    active ? "bg-gold font-bold text-[#233238]" : w.current ? "ring-1 ring-gold text-gold" : w.open ? "text-[#F3EEE4]/80 hover:bg-white/10" : "text-[#F3EEE4]/35 hover:bg-white/5",
+                    "grid h-10 w-10 place-items-center rounded-full text-[13px] tabular-nums transition",
+                    active ? "bg-gold font-bold text-[#233238]" : w.current ? "ring-2 ring-gold text-gold" : w.open ? "text-[#F3EEE4]/90 hover:bg-white/10" : "text-[#F3EEE4]/65 hover:bg-white/5",
                   )}
                 >
                   {w.n}
@@ -202,7 +227,7 @@ function Sidebar({
             <button
               onClick={() => setWeeksOpen((v) => !v)}
               aria-expanded={weeksOpen}
-              className="flex w-full items-center justify-between px-2.5 pb-1 text-[10px] font-bold uppercase tracking-[0.16em] text-[#F3EEE4]/55 hover:text-[#F3EEE4]/80"
+              className="flex min-h-11 w-full items-center justify-between rounded-lg px-2.5 text-[12px] font-bold uppercase tracking-[0.14em] text-[#F3EEE4]/80 hover:text-white"
             >
               Your 13 weeks
               <ChevronDown className={cx("h-3.5 w-3.5 transition-transform", !weeksOpen && "-rotate-90")} aria-hidden />
@@ -210,7 +235,7 @@ function Sidebar({
             {weeksOpen &&
               stages.map((stage) => (
                 <div key={stage} className="mt-1.5">
-                  <p className="px-2.5 font-serif text-[12.5px] italic text-gold/90">{stage}</p>
+                  <p className="px-2.5 font-serif text-[13.5px] italic text-gold">{stage}</p>
                   {weeks
                     .filter((w) => w.stage === stage)
                     .map((w) => {
@@ -219,15 +244,19 @@ function Sidebar({
                         <Link
                           key={w.n}
                           href={`/app/week/${w.n}`}
+                          onClick={onClose}
+                          aria-current={active ? "page" : undefined}
                           className={cx(
-                            "flex items-center gap-2 rounded-lg px-2.5 py-1 text-[12.5px] transition",
-                            active ? "bg-gold/15 font-semibold text-[#F3E3BC]" : w.open ? "text-[#F3EEE4]/80 hover:bg-white/[0.06] hover:text-white" : "text-[#F3EEE4]/40 hover:bg-white/[0.04]",
+                            "flex min-h-11 items-center gap-2 rounded-lg px-2.5 py-2 text-[13.5px] transition",
+                            active ? "bg-gold/15 font-semibold text-[#F3E3BC]" : w.open ? "text-[#F3EEE4]/90 hover:bg-white/[0.06] hover:text-white" : "text-[#F3EEE4]/70 hover:bg-white/[0.04]",
                           )}
                         >
-                          <span className={cx("w-5 text-right text-[10.5px] tabular-nums", w.current ? "font-bold text-gold" : "text-[#F3EEE4]/45")}>{w.n}</span>
+                          <span className={cx("w-5 text-right text-[12px] tabular-nums", w.current ? "font-bold text-gold" : "text-[#F3EEE4]/75")}>{w.n}</span>
                           <span className="flex-1 truncate">{w.title}</span>
-                          {!w.open && <Lock className="h-3 w-3 shrink-0 opacity-60" aria-label="Not open yet" />}
-                          {w.current && <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-gold" aria-label="This week" />}
+                          {!w.open && <Lock className="h-3.5 w-3.5 shrink-0 opacity-75" aria-hidden />}
+                          {!w.open && <span className="sr-only">(not open yet)</span>}
+                          {w.current && <span className="h-2 w-2 shrink-0 rounded-full bg-gold" aria-hidden />}
+                          {w.current && <span className="sr-only">(this week)</span>}
                         </Link>
                       );
                     })}
@@ -241,12 +270,13 @@ function Sidebar({
         <button
           type="submit"
           title="Sign out"
+          aria-label={rail ? "Sign out" : undefined}
           className={cx(
-            "flex w-full items-center rounded-lg py-1.5 text-[12.5px] text-[#F3EEE4]/60 transition hover:bg-white/[0.06] hover:text-white",
+            "flex min-h-11 w-full items-center rounded-lg py-2.5 text-[13.5px] text-[#F3EEE4]/85 transition hover:bg-white/[0.06] hover:text-white",
             rail ? "justify-center" : "gap-2.5 px-2.5",
           )}
         >
-          <LogOut className="h-4 w-4" />
+          <LogOut className="h-4 w-4" aria-hidden />
           {!rail && "Sign out"}
         </button>
       </form>
@@ -254,18 +284,21 @@ function Sidebar({
   );
 }
 
-function NavItem({ href, icon: Icon, label, active, rail }: { href: string; icon: typeof Map; label: string; active: boolean; rail: boolean }) {
+function NavItem({ href, icon: Icon, label, active, rail, onNavigate }: { href: string; icon: typeof Map; label: string; active: boolean; rail: boolean; onNavigate?: () => void }) {
   return (
     <Link
       href={href}
       title={label}
+      onClick={onNavigate}
+      aria-label={rail ? label : undefined}
+      aria-current={active ? "page" : undefined}
       className={cx(
-        "flex items-center rounded-lg py-1.5 text-[13px] transition",
+        "flex min-h-11 items-center rounded-lg py-2.5 text-[14px] transition",
         rail ? "justify-center px-0" : "gap-2.5 px-2.5",
         active ? "bg-gold/15 font-semibold text-[#F3E3BC]" : "text-[#F3EEE4]/85 hover:bg-white/[0.06] hover:text-white",
       )}
     >
-      <Icon className={cx("h-[17px] w-[17px] shrink-0", active ? "text-gold" : "text-[#F3EEE4]/60")} />
+      <Icon className={cx("h-[18px] w-[18px] shrink-0", active ? "text-gold" : "text-[#F3EEE4]/75")} aria-hidden />
       {!rail && <span className="flex-1">{label}</span>}
     </Link>
   );

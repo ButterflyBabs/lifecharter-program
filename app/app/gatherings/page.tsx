@@ -35,7 +35,7 @@ export default async function GatheringsPage() {
         <p className="eyebrow">Next Gathering</p>
         <h2 className="text-[30px]">{formatDate(next)} · 6:00pm MT</h2>
         {joinUrl ? (
-          <a href={joinUrl} target="_blank" rel="noopener" className="btn btn-primary self-start">Join on Zoom</a>
+          <a href={joinUrl} target="_blank" rel="noopener" className="btn btn-primary self-start">Join on Zoom<span className="sr-only"> (opens in a new tab)</span></a>
         ) : (
           <p className="ui text-[14px] text-ink-soft">The Zoom link will appear here before the first Gathering.</p>
         )}
@@ -49,8 +49,11 @@ export default async function GatheringsPage() {
         ) : (
           replays.map((g, i) => (
             <details key={g.id} open={i === 0} className="card group overflow-hidden">
-              <summary className="flex cursor-pointer list-none flex-wrap items-baseline justify-between gap-2 p-5">
-                <span className="font-serif text-[22px] text-teal">{g.title || "Weekly LifeCharter Gathering"}</span>
+              <summary className="flex min-h-11 cursor-pointer list-none flex-wrap items-baseline justify-between gap-2 p-5">
+                <span className="flex items-center gap-2 font-serif text-[22px] text-teal">
+                  <span aria-hidden className="ui inline-block text-[14px] transition-transform group-open:rotate-90">▶</span>
+                  {g.title || "Weekly LifeCharter Gathering"}
+                </span>
                 <span className="ui text-[13px] text-ink-soft">
                   {new Date(g.starts_at).toLocaleDateString("en-US", { timeZone: "America/Denver", weekday: "long", month: "long", day: "numeric", year: "numeric" })}
                 </span>
