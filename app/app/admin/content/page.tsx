@@ -5,7 +5,7 @@ import type { Metadata } from "next";
 import { getMember } from "@/lib/program/member";
 import { createClient } from "@/lib/supabase/server";
 import { STATIC_RESOURCES, WEEKS } from "@/lib/program/curriculum";
-import { addReplayForm, deleteReplay, saveJoinUrlForm, saveLessonForm } from "./actions";
+import { addReplayForm, deleteReplay, saveJoinUrlForm, saveLessonForm, syncReplaysNow } from "./actions";
 import FeedbackForm from "./FeedbackForm";
 
 export const metadata: Metadata = { title: "Admin · Videos & Gatherings" };
@@ -50,8 +50,22 @@ export default async function AdminContentPage() {
         </FeedbackForm>
       </section>
 
+      <section className="card flex flex-col gap-3 p-6">
+        <h2 className="text-[26px]">Automatic replays</h2>
+        <p className="max-w-2xl text-[15px] text-ink-soft">
+          Upload each Gathering recording to your Vimeo folder named <b>Replays</b>. Every two hours the app adds new ones to the Gatherings page and posts them in the Collective&rsquo;s Replays channel. Put the date in the video&rsquo;s name (for example 2026-12-01) and it files under that Gathering; otherwise it uses the Tuesday before the upload. The video&rsquo;s Vimeo description becomes its summary.
+        </p>
+        {process.env.VIMEO_ACCESS_TOKEN ? (
+          <form action={syncReplaysNow}>
+            <button className="btn btn-outline min-h-11">Check for new replays now</button>
+          </form>
+        ) : (
+          <p className="ui rounded-lg bg-blush px-4 py-2 text-[14px] text-terra-ink">Not connected yet: the app needs a Vimeo access token (VIMEO_ACCESS_TOKEN). Until then, add replays by hand below.</p>
+        )}
+      </section>
+
       <section className="card flex flex-col gap-4 p-6">
-        <h2 className="text-[26px]">Add a Gathering replay</h2>
+        <h2 className="text-[26px]">Add a Gathering replay by hand</h2>
         <FeedbackForm action={addReplayForm} button="Add replay" resetOnSuccess className="grid gap-3 md:grid-cols-2">
           <label className={label} htmlFor="r-date">Gathering date<input id="r-date" name="date" type="date" required className="field-input font-normal" /></label>
           <label className={label} htmlFor="r-video">Vimeo link<input id="r-video" name="video" required placeholder="https://vimeo.com/…" className="field-input font-normal" /></label>

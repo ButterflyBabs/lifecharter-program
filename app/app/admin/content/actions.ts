@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { getMember } from "@/lib/program/member";
 import { createClient } from "@/lib/supabase/server";
 import { parseVimeo } from "@/lib/program/video";
+import { gatheringStart, syncReplays } from "@/lib/program/replays";
 
 async function requireAdmin() {
   const member = await getMember();
@@ -15,18 +16,6 @@ function refresh() {
   revalidatePath("/app/admin/content");
   revalidatePath("/app/gatherings");
   revalidatePath("/app/week/[n]", "page");
-}
-
-/** 6pm Mountain Time on a date, as an ISO timestamp (handles daylight saving). */
-function gatheringStart(date: string) {
-  const noon = new Date(`${date}T12:00:00Z`);
-  const offset = new Intl.DateTimeFormat("en-US", { timeZone: "America/Denver", timeZoneName: "shortOffset" })
-    .formatToParts(noon)
-    .find((p) => p.type === "timeZoneName")!
-    .value.replace("GMT", ""); // e.g. "-7"
-  const hours = Number(offset || "0");
-  const sign = hours <= 0 ? "-" : "+";
-  return `${date}T18:00:00${sign}${String(Math.abs(hours)).padStart(2, "0")}:00`;
 }
 
 export async function saveLesson(formData: FormData) {
@@ -103,4 +92,12 @@ export async function saveJoinUrlForm(_prev: FormState, formData: FormData) {
 }
 export async function addReplayForm(_prev: FormState, formData: FormData) {
   return withFeedback(addReplay, formData, "Replay added ✓");
+}
+
+// "Check for new replays now" on the admin page: the same sync the scheduled job runs.
+export async function syncReplaysNow() {
+  await requireAdmin();
+  const r = await syncReplays();
+  refresh();
+  if (r.error) throw new Error(r.error);
 }
