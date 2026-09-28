@@ -67,7 +67,7 @@ async function vimeo(path: string, token: string) {
 }
 
 export async function syncReplays(): Promise<{ added: string[]; posted: number; folder: string | null; error?: string }> {
-  const token = process.env.VIMEO_ACCESS_TOKEN;
+  const token = process.env.VIMEO_ACCESS_TOKEN?.trim().replace(/^bearer\s+/i, "");
   if (!token) return { added: [], posted: 0, folder: null, error: "VIMEO_ACCESS_TOKEN isn't set" };
   const admin = createAdminClient();
 

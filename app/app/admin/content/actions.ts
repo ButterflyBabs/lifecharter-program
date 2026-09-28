@@ -108,8 +108,11 @@ export async function syncReplaysNow() {
         : `Connected to Vimeo folder "${r.folder}". No new replays right now.`;
   } catch (e) {
     const m = (e as Error).message;
+    // Describe the saved token's shape (never its content) so a wrong paste is easy to spot.
+    const t = process.env.VIMEO_ACCESS_TOKEN ?? "";
+    const shape = `the saved value is ${t.length} characters${/^[0-9a-f]{32}$/.test(t.trim()) ? ", the right shape" : /\s/.test(t) ? " and contains spaces or line breaks" : /^bearer/i.test(t.trim()) ? ' and starts with "bearer"' : ""}; a Vimeo token is 32 letters and numbers`;
     msg = /401|credentials/i.test(m)
-      ? "Vimeo didn't accept the access token. Generate a new one (Authenticated, Public + Private) and paste it into VIMEO_ACCESS_TOKEN in Vercel, then redeploy."
+      ? `Vimeo didn't accept the access token (${shape}). Generate a new one (Authenticated, Public + Private) and paste only the token into VIMEO_ACCESS_TOKEN in Vercel, then redeploy.`
       : `Couldn't check: ${m.slice(0, 200)}`;
   }
   refresh();
