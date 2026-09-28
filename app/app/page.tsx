@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { getMember } from "@/lib/program/member";
 import NotEnrolled from "@/components/NotEnrolled";
+import InstallHint from "@/components/InstallHint";
 import { WEEKS } from "@/lib/program/curriculum";
 import { currentWeek, formatDate, isOpen, nextGathering, weekOpens } from "@/lib/program/schedule";
 import { createClient } from "@/lib/supabase/server";
@@ -34,6 +35,7 @@ export default async function PathPage() {
 
   return (
     <div className="fade-in flex flex-col gap-8">
+      <InstallHint />
       <section className="flex flex-col gap-2">
         <p className="eyebrow">{cls.name} class</p>
         <h1 className="text-[38px] md:text-[46px]">{greeting}</h1>

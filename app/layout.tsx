@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { EB_Garamond, Lora, Montserrat } from "next/font/google";
 import "./globals.css";
 
@@ -9,6 +9,13 @@ const montserrat = Montserrat({ variable: "--font-montserrat", subsets: ["latin"
 export const metadata: Metadata = {
   title: { default: "The LifeCharter Program", template: "%s · LifeCharter" },
   description: "Design a balanced, authentic life across all twelve dimensions, one week at a time, with AmiLynne “Babs” Carroll.",
+  // Installable on phones (manifest in app/manifest.ts); iPhone uses these for "Add to Home Screen".
+  appleWebApp: { capable: true, title: "LifeCharter", statusBarStyle: "default" },
+  icons: { apple: "/icons/apple-touch-icon.png" },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#0f5b63",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
