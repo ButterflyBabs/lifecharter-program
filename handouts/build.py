@@ -504,7 +504,7 @@ def week10():
              quote="Your career is the flight. Your calling is the compass that keeps you oriented when the path twists.",
              glance=[("Watch", "Career lesson"), ("Write", "Your seven movements"), ("Live", "Lift and Drag"), ("Gather", "Bring your notes")],
              care_label="Before you begin",
-             care="Career means your work and contribution in every form: employed, business owner, caregiver, homemaker, volunteer, student, retired, between jobs, or unable to work. Building a business? Book a complimentary Next Chapter Call: app.globalcontrol.io/appointment-booking/next-chapter-call",
+             care="Career means your work and contribution in every form: employed, business owner, caregiver, homemaker, volunteer, student, retired, between jobs, or unable to work. Building a business? Book a complimentary Next Chapter Call: lccommandsuite.com/book/next-chapter-call",
              air_intro="Bigger than a job title: what you give your time, skill and energy to. When work lines up with your calling, even hard days have meaning.",
              air_words="Three words that describe my work life right now",
              air_q1="The parts of my work that light me up…",
@@ -616,7 +616,7 @@ def week12():
              '<div class="grid2">' +
              card(label("Your Charter Renewal") + '<p class="small">Every year on your signing anniversary: rate your twelve dimensions again and update each chapter for the year ahead.</p>') +
              card(label("The LifeCharter Collective") + '<p class="small">Stay connected to your fellow travelers as an alumnus. Share your Charter Statement, your wins and your renewals.</p>') +
-             card(label("Your Next Chapter Call") + '<p class="small">A complimentary 30-minute call with Babs about where you\'re flying next.<br><b>app.globalcontrol.io/appointment-booking/next-chapter-call</b></p>') +
+             card(label("Your Next Chapter Call") + '<p class="small">A complimentary 30-minute call with Babs about where you\'re flying next.<br><b>lccommandsuite.com/book/next-chapter-call</b></p>') +
              card(label("Building something?") + '<p class="small">Graduates who enroll in LifeCharter Command Suite implementation within 30 days of graduating receive a $500 alumni credit (code LCALUMNI500). We\'ll talk about it on your Next Chapter Call.</p>') +
              "</div>" +
              card(prompt("A note to myself on graduation day", 7), "warm") +

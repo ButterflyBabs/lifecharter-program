@@ -288,14 +288,14 @@ export const STATIC_RESOURCES: Record<number, { title: string; url: string; desc
   10: [
     {
       title: "Book a Next Chapter Call",
-      url: "https://app.globalcontrol.io/appointment-booking/next-chapter-call",
+      url: "https://lccommandsuite.com/book/next-chapter-call",
       description: "Building a business or a mission of your own? A complimentary 30-minute call with Babs.",
     },
   ],
   12: [
     {
       title: "Book your Next Chapter Call",
-      url: "https://app.globalcontrol.io/appointment-booking/next-chapter-call",
+      url: "https://lccommandsuite.com/book/next-chapter-call",
       description: "A complimentary 30-minute graduation call with Babs about where you're flying next.",
     },
   ],
