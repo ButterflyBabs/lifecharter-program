@@ -76,7 +76,7 @@ function weekEmail({ first, cls, week, joinUrl }: { first: string; cls: ProgramC
     title: week === 0 ? "Head up. Your journey begins." : w.title,
     bodyHtml: hi + intro + gatheringLine,
     button: { label: week === 0 ? "Open Orientation" : `Open Week ${week}`, href: url },
-    footnote: `You're receiving this because you're enrolled in the ${esc(cls.name)} class of the LifeCharter Program. Questions? Just reply, or write to support@amilynnecarroll.com.`,
+    footnote: `You're receiving this because you're enrolled in the ${esc(cls.name)} class of the LifeCharter Program. Questions? Just reply, or write to support@lccommandsuite.com.`,
   });
   const text = `${first ? `Hi ${first},\n\n` : ""}${label} is open: ${w.title}.\n\nWeekly LifeCharter Gathering: ${gathering} at 6:00pm MT.${joinUrl ? ` Zoom: ${joinUrl}` : ""}\n\nOpen it here: ${url}\n\nHead up - Wings out\nBabs 🦋`;
   return { subject, html, text };
