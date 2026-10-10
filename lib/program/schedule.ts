@@ -11,7 +11,7 @@ export type ProgramClass = {
   week1_opens: string; // YYYY-MM-DD, a Sunday
 };
 
-function addDays(iso: string, days: number) {
+export function addDays(iso: string, days: number) {
   const d = new Date(`${iso}T12:00:00Z`);
   d.setUTCDate(d.getUTCDate() + days);
   return d.toISOString().slice(0, 10);

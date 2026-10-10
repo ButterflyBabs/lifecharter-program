@@ -5,6 +5,8 @@ import NotEnrolled from "@/components/NotEnrolled";
 import { CHAPTER_FIELDS, CHAPTER_FIELDS_12, WEEKS, weekData } from "@/lib/program/curriculum";
 import { isOpen } from "@/lib/program/schedule";
 import { createClient } from "@/lib/supabase/server";
+import CharterSigningCard from "@/components/CharterSigningCard";
+import { charterOverview } from "@/lib/program/charter-server";
 
 export const metadata: Metadata = { title: "My LifeCharter" };
 
@@ -25,6 +27,7 @@ export default async function CharterPage() {
     byWeek.set(e.week, { ...(byWeek.get(e.week) ?? {}), [e.field]: e.value });
   }
 
+  const signing = await charterOverview(supabase, member);
   const statement = text(byWeek.get(12)?.charter_statement);
   const chapters = WEEKS.filter((w) => w.n >= 1);
   const written = chapters.filter((w) => {
@@ -41,6 +44,8 @@ export default async function CharterPage() {
           Each week, your Truth, Horizon, Why and Flight Plan from the Charter pages collect here as a chapter. You&rsquo;ll sign all twelve in Week 12. {written} of 12 chapters started.
         </p>
       </section>
+
+      <CharterSigningCard status={signing.status} signedOn={signing.latest?.signed_on} />
 
       {statement && (
         <section className="card-warm p-7 text-center">

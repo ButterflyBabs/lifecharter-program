@@ -6,6 +6,8 @@ export type Member = {
   userId: string;
   email: string;
   firstName: string;
+  /** Display name from the profile (or the sign-up name); empty if none */
+  fullName: string;
   isAdmin: boolean;
   /** Admins without an enrollment see the program in preview mode, with every week open. */
   preview: boolean;
@@ -45,6 +47,7 @@ export const getMember = cache(async (): Promise<Member | null> => {
     userId: user.id,
     email: user.email ?? "",
     firstName: name.split(" ")[0] || "",
+    fullName: name.trim(),
     isAdmin: admin,
     preview: admin && !enrollment,
     cls,

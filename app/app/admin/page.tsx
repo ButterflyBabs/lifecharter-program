@@ -142,7 +142,10 @@ export default async function AdminPage() {
       <section>
         <p className="eyebrow">Admin</p>
         <h1 className="mt-1 text-[38px]">Program admin</h1>
-        <Link href="/app/admin/content" className="btn btn-outline mt-4">Videos, resources &amp; Gatherings →</Link>
+        <div className="mt-4 flex flex-wrap gap-3">
+          <Link href="/app/admin/content" className="btn btn-outline">Videos, resources &amp; Gatherings →</Link>
+          <Link href="/app/admin/charter" className="btn btn-outline">Charter signing &amp; renewals →</Link>
+        </div>
       </section>
 
       <section className="card flex flex-col gap-3 p-6">

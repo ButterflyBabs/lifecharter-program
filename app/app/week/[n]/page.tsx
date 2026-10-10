@@ -10,6 +10,8 @@ import { formatDate, isOpen, weekOpens } from "@/lib/program/schedule";
 import { lessonTranscript } from "@/lib/program/lessons";
 import { createClient } from "@/lib/supabase/server";
 import LessonTabs from "./LessonTabs";
+import CharterSigningCard from "@/components/CharterSigningCard";
+import { charterOverview } from "@/lib/program/charter-server";
 
 function weekNumber(raw: string) {
   const n = Number(raw);
@@ -63,6 +65,8 @@ export default async function WeekPage({ params, searchParams }: PageProps<"/app
   }
 
   const supabase = await createClient();
+  // Week 12 only: the doorway to the Charter signing (it exists only once this week has opened).
+  const signing = n === 12 ? await charterOverview(supabase, member) : null;
   const [transcriptSrc, { data: media }] = await Promise.all([
     lessonTranscript(n),
     supabase.from("lcp_lesson_media").select("video_id, resources").eq("week", n).maybeSingle(),
@@ -87,6 +91,7 @@ export default async function WeekPage({ params, searchParams }: PageProps<"/app
           {w.care}
         </div>
       )}
+      {signing && <CharterSigningCard status={signing.status} signedOn={signing.latest?.signed_on} />}
       <LessonTabs
         week={n}
         title={meta.title}
