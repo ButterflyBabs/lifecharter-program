@@ -156,6 +156,7 @@ function SoulCoupon({ code }: { code: string }) {
           {copied ? "Copied" : "Copy code"}
         </button>
       </div>
+      <p className="ui text-[13px] text-ink-soft">Your code covers the challenges listed by name here. Others in the Soul Studio are at the regular price.</p>
       <p className="ui text-[13px] text-ink-soft" aria-live="polite">This code is just for you and your class. Please keep it within the Program.</p>
     </div>
   );
