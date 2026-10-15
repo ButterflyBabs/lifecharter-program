@@ -1,3 +1,4 @@
+import { threePaySentence } from "@/lib/program/payment-plan";
 import { NextResponse } from "next/server";
 import { getStripe, PRICE_KEYS } from "@/lib/stripe";
 import { createAdminClient } from "@/lib/supabase/admin";
@@ -60,7 +61,7 @@ export async function GET(request: Request) {
     allow_promotion_codes: false,
     billing_address_collection: "auto",
     custom_text: {
-      submit: { message: `You'll join the ${cls.name} class. Your welcome email arrives in a minute or two. 7-day refund guarantee.` },
+      submit: { message: `You'll join the ${cls.name} class. ${plan === "three_pay" ? `${threePaySentence(new Date())} ` : ""}Your welcome email arrives in a minute or two. 7-day refund guarantee.` },
     },
   });
 

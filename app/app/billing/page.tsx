@@ -3,6 +3,7 @@ import { getMember } from "@/lib/program/member";
 import { createClient } from "@/lib/supabase/server";
 import { LEVELS, formatDeadline, type Offer } from "@/lib/program/offer";
 import { formatDate } from "@/lib/program/schedule";
+import { threePaySentence } from "@/lib/program/payment-plan";
 import NotifyForm from "@/components/NotifyForm";
 
 export const metadata: Metadata = { title: "Billing" };
@@ -49,6 +50,9 @@ export default async function BillingPage() {
           <p className="text-ink-soft">
             {member.preview ? "You're previewing as an admin, so there's no plan on this account." : "You're not enrolled in the LifeCharter Program yet."}
           </p>
+        )}
+        {enrollment?.payment_plan === "three_pay" && enrollment.created_at && (
+          <p className="ui text-[14px]"><b>Your payment schedule.</b> {threePaySentence(new Date(enrollment.created_at))}</p>
         )}
         <p className="ui text-[13px] text-ink-soft">
           Questions about a payment or a refund? The LifeCharter Program has a 7-day refund guarantee. Email <a href="mailto:support@lccommandsuite.com" className="font-semibold text-teal underline">support@lccommandsuite.com</a>.

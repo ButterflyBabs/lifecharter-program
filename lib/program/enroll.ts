@@ -4,6 +4,7 @@ import { createAdminClient } from "@/lib/supabase/admin";
 import { getStripe } from "@/lib/stripe";
 import { brandEmail, esc, sendEmail } from "@/lib/email";
 import { formatDate, todayMT } from "./schedule";
+import { threePaySentence } from "./payment-plan";
 
 export const APP_URL = process.env.NEXT_PUBLIC_APP_URL ?? "https://lifecharter.life";
 
@@ -91,7 +92,7 @@ export async function fulfillCheckout(session: Stripe.Checkout.Session) {
   const starts = formatDate(target.start_date);
   const body = `${first ? `Hi ${esc(first)},<br><br>` : ""}Welcome to the LifeCharter Program${founding ? " as a founding member" : ""}. I'm so glad you're here.<br><br>
     Your class, <b>${esc(target.name)}</b>, begins <b>${esc(starts)}</b> with Orientation. New weeks open every Sunday, and we gather live every Tuesday at 6pm MT.<br><br>
-    ${isNew ? "Your LifeCharter account is ready. Set your password to step inside:" : "You already have a LifeCharter account, so sign in with your usual email and password, or set a new password here:"}`;
+    ${plan === "three_pay" ? `<b>Your payments.</b> ${esc(threePaySentence(new Date((session.created ?? Math.floor(Date.now() / 1000)) * 1000)))}<br><br>` : ""}${isNew ? "Your LifeCharter account is ready. Set your password to step inside:" : "You already have a LifeCharter account, so sign in with your usual email and password, or set a new password here:"}`;
   await sendEmail({
     to: email,
     subject: "Welcome to the LifeCharter Program",
